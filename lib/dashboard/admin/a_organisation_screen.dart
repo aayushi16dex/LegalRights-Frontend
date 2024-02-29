@@ -39,7 +39,7 @@ class _OrganisationScreenState extends State<OrganisationScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                BuildAddButton.buildAddButton(context, "Organisation"),
+                BuildAddButton.buildAddButton(context, "Add Organisation"),
               ],
             ),
 

@@ -40,18 +40,18 @@ class _LegalExpertRoleScreenState extends State<LegalExpertRoleScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, "Legal Expert"),
+                BuildAddButton.buildAddButton(context, "Add Legal Expert"),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, "Language")
+                BuildAddButton.buildAddButton(context, "Add Language")
               ],
             ),
             const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, "Expertise"),
+                BuildAddButton.buildAddButton(context, "Add Expertise"),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, "Profession")
+                BuildAddButton.buildAddButton(context, "Add Profession")
               ],
             ),
             const SizedBox(height: 10),

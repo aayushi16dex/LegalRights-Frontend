@@ -5,7 +5,8 @@ import '../../core/TokenManager.dart';
 import '../../core/config.dart';
 
 class SectionApiCall {
-  static Future<List<Map<String, dynamic>>> fetchSectionApi(BuildContext context) async {
+  static Future<List<Map<String, dynamic>>> fetchSectionApi(
+      BuildContext context) async {
     try {
       final String fetchSectionUrl = AppConfig.fetchSections;
       final String authToken = await TokenManager.getAuthToken();
@@ -22,8 +23,7 @@ class SectionApiCall {
         final Map<String, dynamic> data = json.decode(response.body);
         final List<dynamic> sectionList = data['sectionList'];
 
-        final List<Map<String, dynamic>> sections = 
-        sectionList.map((query) {
+        final List<Map<String, dynamic>> sections = sectionList.map((query) {
           return {
             '_id': query['_id'].toString(),
             'sectionNumber': query['sectionNumber'].toString(),

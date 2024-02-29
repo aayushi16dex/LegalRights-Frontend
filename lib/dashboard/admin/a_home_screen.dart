@@ -47,22 +47,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, 'Add quiz'),
+                BuildAddButton.buildAddButton(context, 'Add Quiz'),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add section'),
+                BuildAddButton.buildAddButton(context, 'Add Section'),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add video')
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                BuildAddButton.buildAddButton(context, 'Add quiz'),
+                BuildAddButton.buildAddButton(context, 'Add Video'),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add section'),
-                const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add video')
+                BuildAddButton.buildAddButton(context, 'View Section'),
               ],
             ),
             const SizedBox(height: 20),
@@ -70,16 +61,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 future: countsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // While waiting for data, show a loading indicator
                     return Center(
                       child: CustomeCircularProgressBar
                           .customeCircularProgressBar(),
                     );
                   } else if (snapshot.hasError) {
-                    // If an error occurs during the fetch, handle it here
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
-                    // If data is available, build the UI with the counts
                     final userCount = snapshot.data!['userCount'];
                     final legalExpertCount = snapshot.data!['legalExpertCount'];
                     final organisationCount =
@@ -122,7 +110,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white), // White text
             ),
-            const SizedBox(height: 10),
             Text(
               'Count: $count',
               style: const TextStyle(

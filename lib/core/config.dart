@@ -87,4 +87,5 @@ class AppConfig {
   static String get fetchOrganisation => _createUrl('/organisation/fetch');
   // Legal content
   static String get fetchSections => _createUrl('/content/fetchSections');
+  static String get addSection => _createUrl('/admin/section');
 }
