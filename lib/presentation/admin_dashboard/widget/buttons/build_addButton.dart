@@ -42,8 +42,7 @@ class BuildAddButton {
           }
         },
         style: TextButton.styleFrom(
-          primary: Colors.white,
-          backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+          foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(255, 4, 37, 97),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
