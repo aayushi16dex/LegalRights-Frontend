@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/api_call/profileData_api/profileData_apiCall.dart';
+import 'package:frontend/core/role.dart';
 import 'package:frontend/presentation/confirmation_alert/error_confirmation.dart';
 import 'package:frontend/presentation/confirmation_alert/signup_confirmation.dart';
 import 'dart:convert';
@@ -13,9 +14,18 @@ class RegisterApiCall {
   static String error = '';
   static Future<void> registerUserApi(
       BuildContext context, Map postData) async {
-    final String userSignUpUrl = '${AppConfig.signUpUrl}';
+    String? roleFromPostData = postData['role'];
+    final String signupUrl;
     try {
-      final response = await http.post(Uri.parse(userSignUpUrl),
+      if (roleFromPostData == roleLegalExpert) {
+        signupUrl = '${AppConfig.legalExpertRegisterUrl}';
+      } else if (roleFromPostData == roleChild) {
+        signupUrl = '${AppConfig.userSignUpUrl}';
+      } else {
+        // Handle unknown roles appropriately (throw an exception, set a default URL, etc.).
+        throw Exception('Unknown role: $roleFromPostData');
+      }
+      final response = await http.post(Uri.parse(signupUrl),
           headers: {
             'Content-Type': 'application/json',
           },

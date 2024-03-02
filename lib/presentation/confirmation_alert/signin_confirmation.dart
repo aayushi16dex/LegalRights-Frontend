@@ -36,15 +36,6 @@ class SignInConfirmation {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Role: $role',
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 4, 37, 97),
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10.0),
               Image.asset(
                 'assets/images/successful-sign.gif',
                 height: 150.0,
