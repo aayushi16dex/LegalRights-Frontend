@@ -69,12 +69,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fontFamily: 'PressStart2P'),
             textAlign: TextAlign.center,
           ),
+          iconTheme: const IconThemeData(
+            color: Colors.white, // Set your desired color here
+          ),
           backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         body: Center(
             child: Column(children: [
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 3.0),
           Expanded(
               child: Container(
             margin: const EdgeInsets.all(15.0),
@@ -97,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 5,
                   ),
                   // if admin is true then only visible below code
                   if (widget.isAdmin)
@@ -108,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ],
                     ),
 
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
                   ElevatedButton(
                     onPressed: () {
                       signUp(signupFieldController);

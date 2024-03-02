@@ -10,7 +10,7 @@ class OrganisationApiCall {
   static Future<List<Map<String, dynamic>>> fetchOrganisationListApi(
       BuildContext context) async {
     try {
-      final String fetchOrganisationList = AppConfig.fetchOrganisation;
+      final String fetchOrganisationList = AppConfig.fetchOrganisationList;
       final String authToken = await TokenManager.getAuthToken();
       final response =
           await http.get(Uri.parse(fetchOrganisationList), headers: {
@@ -42,7 +42,7 @@ class OrganisationApiCall {
       BuildContext context, Object orgId) async {
     try {
       final String fetchOrganisationUrl =
-          '${AppConfig.fetchOrganisation}/$orgId';
+          '${AppConfig.fetchOrganisationById}/$orgId';
       final String authToken = await TokenManager.getAuthToken();
       final response =
           await http.get(Uri.parse(fetchOrganisationUrl), headers: {

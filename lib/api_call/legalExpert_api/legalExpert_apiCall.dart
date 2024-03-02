@@ -38,7 +38,7 @@ class LegalExpertApiCall {
   static Future<List<Map<String, dynamic>>> fetchLegalExpertListApiByUser(
       BuildContext context) async {
     try {
-      final String fetchExpertListByUser = AppConfig.fetchexperts;
+      final String fetchExpertListByUser = AppConfig.fetchexpertListByUser;
       final String authToken = await TokenManager.getAuthToken();
       final response =
           await http.get(Uri.parse(fetchExpertListByUser), headers: {
@@ -69,7 +69,7 @@ class LegalExpertApiCall {
   static Future<Map<String, dynamic>> fetchExpertProfileByIdApi(
       BuildContext context, Object expertId) async {
     try {
-      final String profileUrl = '${AppConfig.fetchexperts}/$expertId';
+      final String profileUrl = '${AppConfig.fetchExpertById}/$expertId';
       final String authToken = await TokenManager.getAuthToken();
       final response = await http.get(Uri.parse(profileUrl), headers: {
         'Authorization': 'Bearer $authToken',

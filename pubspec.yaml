@@ -56,6 +56,7 @@ flutter:
     - assets/images/successfully-deleted.gif
     - assets/images/onboarding1.webp
     - assets/images/signin.gif
+    - assets/images/no data.gif
     - assets/images/user-screen1.jpg
     - assets/images/user-screen2.jpg
     - assets/images/user-screen3.png

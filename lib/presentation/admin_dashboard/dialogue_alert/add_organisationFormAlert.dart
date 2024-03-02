@@ -20,7 +20,7 @@ class AddOrganisationAlertForm {
                   IconButton(
                     icon: const Icon(
                       Icons.cancel,
-                      size: 30,
+                      size: 25,
                       color: Color.fromARGB(255, 4, 37, 97),
                     ),
                     onPressed: () {
@@ -34,8 +34,7 @@ class AddOrganisationAlertForm {
           content: SingleChildScrollView(
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(25.0), // Adjust padding as needed
-
+              padding: const EdgeInsets.all(20.0), // Adjust padding as needed
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
