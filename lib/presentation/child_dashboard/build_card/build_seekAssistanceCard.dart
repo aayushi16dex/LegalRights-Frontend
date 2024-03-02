@@ -7,7 +7,8 @@ class BuildSeekAssistanceCard {
   Widget buildSeekAssistanceCard(
       BuildContext context, Map<String, dynamic> data) {
     String orgName = data['organisationName'];
-    String shortName = data['shortName'];
+    // String shortName = data['shortName'];
+    String shortName = 'aBC';
     String webUrl = data['websiteUrl'];
     AddCardDataWidget addCardDataWidget = AddCardDataWidget();
     SeekAssistanceCardService seekAssistanceCardService =

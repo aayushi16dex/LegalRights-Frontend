@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:frontend/presentation/child_dashboard/section%20content/sectionContent_screen.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/sectionContent_screen.dart';
 
 class BuildSectionCardBox {
   // Function to build a round-cornered box with text
-  Widget buildSectionCardBox(Map<String, dynamic> section) {
+  Widget buildSectionCardBox(
+      Map<String, dynamic> section, BuildContext context) {
     String sectionId = section['_id'];
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -83,10 +84,12 @@ class BuildSectionCardBox {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  MyTimeline(
-                    sectionId: sectionId,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SectionContent(),
+                    ),
                   );
-                  print("SEction is clicked $sectionId");
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
