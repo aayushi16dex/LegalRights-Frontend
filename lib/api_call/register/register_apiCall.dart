@@ -16,20 +16,29 @@ class RegisterApiCall {
       BuildContext context, Map postData) async {
     String? roleFromPostData = postData['role'];
     final String signupUrl;
+    final response;
     try {
       if (roleFromPostData == roleLegalExpert) {
+        final String authToken = await TokenManager.getAuthToken();
         signupUrl = '${AppConfig.legalExpertRegisterUrl}';
+        response = await http.post(Uri.parse(signupUrl),
+            headers: {
+              'Content-Type': 'application/json',
+              'authorization': 'Bearer $authToken',
+            },
+            body: jsonEncode(postData));
       } else if (roleFromPostData == roleChild) {
         signupUrl = '${AppConfig.userSignUpUrl}';
+        response = await http.post(Uri.parse(signupUrl),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(postData));
       } else {
         // Handle unknown roles appropriately (throw an exception, set a default URL, etc.).
         throw Exception('Unknown role: $roleFromPostData');
       }
-      final response = await http.post(Uri.parse(signupUrl),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode(postData));
+
       final Map<String, dynamic> data = json.decode(response.body);
 
       if (response.statusCode == 201) {

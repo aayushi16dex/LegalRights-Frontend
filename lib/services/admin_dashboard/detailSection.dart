@@ -160,7 +160,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 4, 37, 97),
+                  backgroundColor: const Color.fromARGB(255, 4, 37, 97),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                   shape: RoundedRectangleBorder(

@@ -86,8 +86,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       child: ListView.builder(
                           itemCount: sectionList.length,
                           itemBuilder: (context, index) {
-                            return buildSectionCard
-                                .buildSectionCardBox(sectionList[index]);
+                            return buildSectionCard.buildSectionCardBox(
+                                sectionList[index], context);
                           }),
                     );
                   }

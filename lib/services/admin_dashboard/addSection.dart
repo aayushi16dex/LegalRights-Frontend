@@ -144,7 +144,7 @@ class AddSection extends StatelessWidget {
                   },
                   child: const Text('Submit', style: TextStyle(fontSize: 18)),
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 4, 37, 97),
+                    backgroundColor: const Color.fromARGB(255, 4, 37, 97),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
