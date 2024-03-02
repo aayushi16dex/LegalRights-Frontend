@@ -114,8 +114,8 @@ class LegalExpertScreenApiCall {
             'response': query['response'].toString(),
             'createdAt': query['createdAt'].toString(),
             'updatedAt': query['updatedAt'].toString(),
-            'askedBy': query['userId']['firstName'].toString() +
-                query['userId']['lastName'].toString()
+            'askedBy':
+                "${query['userId']['firstName']} ${query['userId']['lastName']}"
           };
         }).toList();
 

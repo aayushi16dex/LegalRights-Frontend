@@ -103,6 +103,7 @@ class _LegalExpertAnsweredQueriesScreenState
                   itemBuilder: (context, index) {
                     final String query = answeredQueries[index]['query'];
                     final String response = answeredQueries[index]['response'];
+                    final String askedBy = answeredQueries[index]['askedBy'];
                     final String createdAt =
                         answeredQueries[index]['createdAt'];
                     final String updatedAt =
@@ -140,7 +141,7 @@ class _LegalExpertAnsweredQueriesScreenState
                               ),
                               Text('Asked At: $formattedCreatedAt'),
                               Text('Answered At: $formattedUpdatedAt'),
-                              //Text('Asked by: $askedBy'),
+                              Text('Asked by: $askedBy'),
                             ],
                           ),
                         ),

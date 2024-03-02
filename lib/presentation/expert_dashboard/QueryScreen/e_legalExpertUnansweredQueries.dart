@@ -235,11 +235,12 @@ class _LegalExpertUnansweredQueriesScreenState
                           child: Center(
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              margin: const EdgeInsets.only(bottom: 8.0),
+                              margin: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(10),
                               child: Column(
                                 children: [
                                   TextField(
-                                    maxLines: 3,
+                                    maxLines: null,
                                     onChanged: (value) {
                                       response = value;
                                     },
@@ -247,6 +248,7 @@ class _LegalExpertUnansweredQueriesScreenState
                                       hintText: 'Enter your response...',
                                     ),
                                   ),
+                                  const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -258,8 +260,8 @@ class _LegalExpertUnansweredQueriesScreenState
                                         },
                                         child: const Text('Cancel'),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.red,
-                                        ),
+                                            backgroundColor: Colors.red,
+                                            foregroundColor: Colors.white),
                                       ),
                                       const SizedBox(width: 16),
                                       ElevatedButton(
@@ -268,9 +270,10 @@ class _LegalExpertUnansweredQueriesScreenState
                                         },
                                         child: const Text('Post Response'),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 4, 37, 97),
-                                        ),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 4, 37, 97),
+                                            foregroundColor: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -282,7 +285,8 @@ class _LegalExpertUnansweredQueriesScreenState
                         if (selectedQuestionIndex != index)
                           Center(
                             child: Container(
-                              alignment: Alignment.center,
+                              alignment: Alignment.bottomRight,
+                              padding: EdgeInsets.all(10),
                               child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
@@ -291,9 +295,9 @@ class _LegalExpertUnansweredQueriesScreenState
                                 },
                                 child: const Text('Answer Query'),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 4, 37, 97),
-                                ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 4, 37, 97),
+                                    foregroundColor: Colors.white),
                               ),
                             ),
                           ),
