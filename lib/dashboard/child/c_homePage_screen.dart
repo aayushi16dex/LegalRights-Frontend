@@ -1,8 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/legalContent_api/section_apiCall.dart';
-import 'package:frontend/presentation/child_dashboard/build_card/contentSection_cardBuild.dart';
+import 'package:frontend/api_call/section_api/section_apiCall.dart';
+import 'package:frontend/presentation/child_dashboard/build_card/build_sectionContent.dart';
+import 'package:frontend/presentation/common/circular_progressBar.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -13,12 +12,13 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   int currentPage = 0;
+  late Future<List<Map<String, dynamic>>> sectionListFuture;
   List<Map<String, dynamic>> sectionList = [];
   final BuildSectionCardBox buildSectionCard = BuildSectionCardBox();
   @override
   void initState() {
     super.initState();
-    var sectionListFuture = SectionApiCall.fetchSectionApi(context);
+    sectionListFuture = SectionApiCall.fetchSectionApi(context);
     sectionListFuture.then((result) {
       setState(() {
         sectionList = result;
@@ -29,119 +29,71 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 10.0),
-          // Section 1: Carousel in a round-cornered box
-          Container(
-            margin: const EdgeInsets.only(top: 15.0),
-            child: Column(
-              children: [
-                CarouselSlider(
-                  items: [
-                    'assets/images/user-screen1.jpg',
-                    'assets/images/user-screen2.jpg',
-                    'assets/images/user-screen3.png',
-                    'assets/images/user-screen4.jpg',
-                  ].map((assetPath) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 28, 96, 223),
-                            width: 2.0,
-                          )),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(13.0),
-                        child: Image.asset(
-                          assetPath,
-                          width: double.infinity,
-                          // height: 1000,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    enableInfiniteScroll: true,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        currentPage = index;
-                      });
-                    },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 5),
+            const Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Play, Learn, Know Your Rights \n\t\t\t\t Fun with Legal Insights!',
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Color.fromARGB(255, 4, 37, 97),
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10.0),
-                  height: MediaQuery.of(context).size.height *
-                      0.03, // Height of the indicator
-                  child: DotsIndicator(
-                    dotsCount: 4, // Number of carousel items
-                    position: currentPage.toDouble(), // Initial position
-                    decorator: const DotsDecorator(
-                      color: Colors.grey, // Inactive dot color
-                      activeColor:
-                          Color.fromARGB(255, 4, 37, 97), // Active dot color
-                      size: Size(20.0, 100.0),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          // Add some space
-          const SizedBox(height: 10.0),
-
-          // Section 2: Motivational quotes
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: const Text(
-                'Play, Learn, Know Your Rights \n\t\t\t\t Fun with Legal Insights!',
-                style: TextStyle(
-                    fontSize: 25.0,
+            const SizedBox(height: 15),
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 120, 124, 127),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: const Center(
+                child: Text(
+                  "Let's Start Learning",
+                  style: TextStyle(
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 73, 98, 139)
-                    //fontFamily:
-                    )),
-          ),
-
-          // Section 3: Exciting Quotes
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
-            child: const Text('GAME ON!!',
-                style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    //color: Color.fromARGB(255, 4, 37, 97),
-                    color: Colors.red,
-                    fontFamily: 'Anton')),
-          ),
-
-          // Section 4: Horizontal Scrollable Boxes
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            height: MediaQuery.of(context).size.height * 0.38,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  sectionList.length,
-                  (index) => buildSectionCard.buildSectionCardBox(
-                      sectionList[index],
+                    color: Colors.white, // Adjust text color
+                  ),
                 ),
               ),
             ),
-          ),
-          ),
-        ],
+            FutureBuilder<List<Map<String, dynamic>>>(
+                future: sectionListFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // While waiting for data, show a loading indicator
+                    return Center(
+                      child: CustomeCircularProgressBar
+                          .customeCircularProgressBar(),
+                    );
+                  } else if (snapshot.hasError) {
+                    // If an error occurs during the fetch, handle it here
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: sectionList.length,
+                          itemBuilder: (context, index) {
+                            return buildSectionCard
+                                .buildSectionCardBox(sectionList[index]);
+                          }),
+                    );
+                  }
+                })
+          ],
+        ),
       ),
     );
   }

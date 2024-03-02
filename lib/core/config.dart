@@ -45,7 +45,8 @@ class AppConfig {
 
   static String get userUrl => _createUrl('/user');
   static String get fetchDisplayPicture => _createUrl('/user');
-  static String get signUpUrl => _createUrl('/user/register');
+  static String get userSignUpUrl => _createUrl('/user/register');
+  static String get legalExpertRegisterUrl => _createUrl('/admin/addExpert');
   static String get signInUrl => _createUrl('/user/login');
   static String get profileUrl => _createUrl('/user/profile');
   static String get fetchexpertListByUser => _createUrl('/expert/fetchList');
