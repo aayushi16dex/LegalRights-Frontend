@@ -35,7 +35,7 @@ class _MyQueryScreenState extends State<MyQueryScreen>
   // code to delete
   Future<void> fetchData() async {
     try {
-      final String expertfetch = AppConfig.fetchexperts;
+      final String expertfetch = AppConfig.fetchexpertListByUser;
       final String authToken = await TokenManager.getAuthToken();
       final response = await http.get(Uri.parse(expertfetch), headers: {
         'Authorization': 'Bearer $authToken',
@@ -96,7 +96,7 @@ class _MyQueryScreenState extends State<MyQueryScreen>
   // code to delete
   Future<Map<String, dynamic>?> viewProfile(String expertId) async {
     try {
-      final String profileUrl = '${AppConfig.fetchexperts}/$expertId';
+      final String profileUrl = '${AppConfig.fetchExpertById}/$expertId';
       final String authToken = await TokenManager.getAuthToken();
       final response = await http.get(Uri.parse(profileUrl), headers: {
         'Authorization': 'Bearer $authToken',

@@ -47,25 +47,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, 'quiz'),
-                const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'section'),
-                const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'video')
+                BuildAddButton.buildAddButton(context, 'Add Quiz'),
+                const SizedBox(width: 2),
+                BuildAddButton.buildAddButton(context, 'Add Section'),
+                const SizedBox(width: 2),
+                BuildAddButton.buildAddButton(context, 'View Section'),
               ],
             ),
             const SizedBox(height: 20),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     BuildAddButton.buildAddButton(context, 'Add quiz'),
-            //     const SizedBox(width: 10),
-            //     BuildAddButton.buildAddButton(context, 'Add section'),
-            //     const SizedBox(width: 10),
-            //     BuildAddButton.buildAddButton(context, 'Add video')
-            //   ],
-            // ),
-            // const SizedBox(height: 20),
             FutureBuilder<Map<String, int>>(
                 future: countsFuture,
                 builder: (context, snapshot) {

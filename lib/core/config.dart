@@ -91,4 +91,5 @@ class AppConfig {
   // Legal content
   static String get fetchSections => _createUrl('/content/fetchSections');
   static String get addSection => _createUrl('/admin/section');
+  static String get deleteSection => _createUrl('/admin/deleteSection');
 }

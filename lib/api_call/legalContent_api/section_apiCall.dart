@@ -10,7 +10,6 @@ class SectionApiCall {
     try {
       final String fetchSectionUrl = AppConfig.fetchSections;
       final String authToken = await TokenManager.getAuthToken();
-
       final response = await http.get(
         Uri.parse(fetchSectionUrl),
         headers: {
@@ -22,7 +21,6 @@ class SectionApiCall {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         final List<dynamic> sectionList = data['sectionList'];
-
         final List<Map<String, dynamic>> sections = sectionList.map((query) {
           return {
             '_id': query['_id'].toString(),

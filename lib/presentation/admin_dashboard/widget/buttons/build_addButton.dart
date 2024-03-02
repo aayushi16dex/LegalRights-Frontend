@@ -4,42 +4,59 @@ import 'package:frontend/presentation/admin_dashboard/dialogue_alert/add_dropdow
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/add_organisationFormAlert.dart';
 import 'package:frontend/services/admin_dashboard/addSection.dart';
 import 'package:frontend/services/admin_dashboard/addVideoService.dart';
+import 'package:frontend/services/admin_dashboard/viewSection.dart';
 
 class BuildAddButton {
   static Widget buildAddButton(BuildContext context, String buttonName) {
     return Expanded(
       child: TextButton(
         onPressed: () => {
-          if (buttonName == 'Add Legal Expert') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignUpScreen(
-                  isAdmin: true,
-                ),
-              ),
-            )
-          } else if (buttonName == 'Add Language' ||
-              buttonName == 'Add Expertise' ||
-              buttonName == 'Add Profession') {
-            AddDropDownDataAlertForm.addDropDownDataForm(context, buttonName)
-          } else if (buttonName == 'Add Organisation') {
-            AddOrganisationAlertForm.addOrganisationForm(context, buttonName)
-          } else if (buttonName == 'Add Section') {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+          if (buttonName == 'Add Legal Expert')
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignUpScreen(
+                    isAdmin: true,
                   ),
-                  child: AddSection(),
-                );
-              },
-            )
-          } else if (buttonName == 'Add Video') {
-            AddVideoService.pickVideo(context)
-          }
+                ),
+              )
+            }
+          else if (buttonName == 'Add Language' ||
+              buttonName == 'Add Expertise' ||
+              buttonName == 'Add Profession')
+            {AddDropDownDataAlertForm.addDropDownDataForm(context, buttonName)}
+          else if (buttonName == 'Add Organisation')
+            {AddOrganisationAlertForm.addOrganisationForm(context, buttonName)}
+          else if (buttonName == 'Add Section')
+            {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: AddSection(),
+                  );
+                },
+              )
+            }
+          else if (buttonName == 'View Section')
+            {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ViewSection(),
+                  );
+                },
+              )
+              //AddVideoService.pickVideo(context)
+            }
         },
         style: TextButton.styleFrom(
           primary: Colors.white,

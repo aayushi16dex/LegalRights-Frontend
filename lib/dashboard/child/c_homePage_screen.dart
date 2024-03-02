@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/section_api/section_apiCall.dart';
+import 'package:frontend/api_call/legalContent_api/section_apiCall.dart';
 import 'package:frontend/presentation/child_dashboard/build_card/contentSection_cardBuild.dart';
 
 class UserHomeScreen extends StatefulWidget {

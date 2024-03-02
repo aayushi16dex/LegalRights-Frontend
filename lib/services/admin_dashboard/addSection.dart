@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/legalContent_api/addSection_api.dart';
-import 'package:frontend/api_call/section_api/section_apiCall.dart';
+import 'package:frontend/api_call/legalContent_api/section_apiCall.dart';
 
 class AddSection extends StatelessWidget {
   final TextEditingController sectionNumberController = TextEditingController();
