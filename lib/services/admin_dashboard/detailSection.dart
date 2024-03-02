@@ -66,7 +66,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pop(false); // Close the dialog and return false
+                    .pop(false);
               },
               child: Text(
                 "No",
@@ -77,7 +77,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
             TextButton(
               onPressed: () async {
                 Navigator.of(context)
-                    .pop(true); // Close the dialog and return true
+                    .pop(true);
               },
               child: Text(
                 "Yes",
@@ -95,12 +95,10 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
           await DeleteSectionApi.deleteSection(context, sectionId);
 
       if (statusCode == 200) {
-        // If the status code is 200, show the snackbar and pop the route
         showSnackBar('Section deleted successfully.');
         Navigator.pop(context);
         Navigator.pop(context);
       } else {
-        // If there is an error or status code is not 200, display an error message
         showSnackBar('Failed to delete section. Status code: $statusCode');
       }
     }
@@ -126,7 +124,6 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              // Show the confirmation dialog
               showDeleteConfirmationDialog(widget.sectionData['_id']);
             },
           ),

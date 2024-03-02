@@ -6,6 +6,8 @@ class AddOrganisationAlertForm {
   static void addOrganisationForm(BuildContext context, String buttonName) {
     OrganisationFormController orgController = OrganisationFormController();
 
+    double fontSize = MediaQuery.of(context).size.width * 0.05;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -16,7 +18,15 @@ class AddOrganisationAlertForm {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Fill Organisation Details'),
+                  Expanded(
+                    child: Text(
+                      'Fill Organisation Details',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
+                  ),
                   IconButton(
                     icon: const Icon(
                       Icons.cancel,
@@ -34,87 +44,104 @@ class AddOrganisationAlertForm {
           content: SingleChildScrollView(
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20.0), // Adjust padding as needed
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 8.0),
                   TextFormField(
                     controller: orgController.organisationNameController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Name',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: orgController.organisationShortNameController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Short Name',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Short Name',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: orgController.organisationWebUrlController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Website Url',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Website Url',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: orgController.organisationAboutController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'About',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'About',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: orgController.organisationVisionController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Vision',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Vision',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: orgController.organisationMissionController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Mission',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Mission',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 5),
                 ],
               ),
             ),
           ),
-          contentPadding: EdgeInsets.zero, // Remove default content padding
+          contentPadding: EdgeInsets.zero,
           actions: [
             Center(
               child: ElevatedButton(
                 onPressed: () async {
                   AddOrganisationService.postOrganisationData(
-                      context, orgController);
+                    context,
+                    orgController,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor:
-                      const Color.fromARGB(255, 4, 37, 97), // White text color
-                  minimumSize: const Size(120, 30), // Increase button size
+                  backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+                  minimumSize: const Size(120, 30),
+                  textStyle: TextStyle(fontSize: fontSize),
                 ),
-                child: const Text(
-                  'Add',
-                  style: TextStyle(fontSize: 15), // Adjust text size
-                ),
+                child: const Text('Add'),
               ),
             ),
           ],

@@ -23,7 +23,7 @@ class ProfessionDropDownApi {
       });
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        print("professtion list send: $data");
+        //print("professtion list send: $data");
         return data;
       } else {
         throw ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

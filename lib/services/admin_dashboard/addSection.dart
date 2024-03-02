@@ -93,7 +93,6 @@ class AddSection extends StatelessWidget {
                   ),
                 ),
                 validator: (value) {
-                  // Add validator logic for Title
                   if (value == null || value.isEmpty) {
                     return 'Title is required';
                   }
@@ -111,7 +110,6 @@ class AddSection extends StatelessWidget {
                   ),
                 ),
                 validator: (value) {
-                  // Add validator logic for Sub Title
                   if (value == null || value.isEmpty) {
                     return 'Sub Title is required';
                   }
@@ -130,7 +128,6 @@ class AddSection extends StatelessWidget {
                   ),
                 ),
                 validator: (value) {
-                  // Add validator logic for Summary
                   if (value == null || value.isEmpty) {
                     return 'Summary is required';
                   }
@@ -142,7 +139,7 @@ class AddSection extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      submitForm(context); // Pass the context to submitForm
+                      submitForm(context);
                     }
                   },
                   child: const Text('Submit', style: TextStyle(fontSize: 18)),

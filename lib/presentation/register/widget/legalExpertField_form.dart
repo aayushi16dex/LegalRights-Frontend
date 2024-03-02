@@ -222,33 +222,36 @@ class _ExpertFormFieldWidget extends State<ExpertFormFieldWidget> {
           ),
           const SizedBox(height: 16.0),
           DropdownButtonFormField<Map<String, dynamic>>(
-            value: selectedState,
-            onChanged: (Map<String, dynamic>? newValue) {
-              setState(() {
-                selectedState = newValue;
-                expertSignupController.stateController.text =
-                    newValue?['id'] ?? '';
-              });
-            },
-            items: [
-              // Add a default label that cannot be selected
-              const DropdownMenuItem<Map<String, dynamic>>(
-                value:
-                    null, // Set the value to null or any other value that won't match any item
-                child: Text('Select a state'),
-              ),
-              ...states.map<DropdownMenuItem<Map<String, dynamic>>>(
-                (item) => DropdownMenuItem<Map<String, dynamic>>(
-                  value: item,
-                  child: Text(item['stateName'] ?? ''),
-                ),
-              )
-            ],
-            decoration: const InputDecoration(
-              labelText: 'State',
-              labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
+  value: selectedProfession,
+  onChanged: (Map<String, dynamic>? newValue) {
+    setState(() {
+      selectedProfession = newValue;
+      expertSignupController.professionController.text =
+          newValue?['id'] ?? '';
+    });
+  },
+  items: [
+    // Add a default label that cannot be selected
+    const DropdownMenuItem<Map<String, dynamic>>(
+      value:
+          null, // Set the value to null or any other value that won't match any item
+      child: Text('Select a profession'),
+    ),
+    ...professions.map<DropdownMenuItem<Map<String, dynamic>>>(
+      (item) => DropdownMenuItem<Map<String, dynamic>>(
+        value: item,
+        child: Text(item['professionName'] ?? ''),
+      ),
+    )
+  ],
+  decoration: InputDecoration(
+    labelText: 'Profession',
+    labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    icon: selectedProfession != null ? Icon(Icons.arrow_drop_down) : null,
+    // Add your custom arrow icon only if a profession is selected
+  ),
+),
+
         ],
       ),
     );

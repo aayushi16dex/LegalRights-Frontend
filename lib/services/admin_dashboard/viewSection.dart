@@ -42,7 +42,6 @@ class _ViewSectionState extends State<ViewSection> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
-                // Set the color of CircularProgressIndicator
                 valueColor: AlwaysStoppedAnimation<Color>(
                   const Color.fromARGB(255, 4, 37, 97),
                 ),
@@ -110,7 +109,6 @@ class _ViewSectionState extends State<ViewSection> {
                               color: Colors.black87,
                             ),
                           ),
-                          // You can add more details if needed
                         ],
                       ),
                     ),
