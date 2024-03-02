@@ -47,16 +47,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, 'Add Quiz'),
+                BuildAddButton.buildAddButton(context, 'quiz'),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add Section'),
+                BuildAddButton.buildAddButton(context, 'section'),
                 const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'Add Video'),
-                const SizedBox(width: 10),
-                BuildAddButton.buildAddButton(context, 'View Section'),
+                BuildAddButton.buildAddButton(context, 'video')
               ],
             ),
             const SizedBox(height: 20),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     BuildAddButton.buildAddButton(context, 'Add quiz'),
+            //     const SizedBox(width: 10),
+            //     BuildAddButton.buildAddButton(context, 'Add section'),
+            //     const SizedBox(width: 10),
+            //     BuildAddButton.buildAddButton(context, 'Add video')
+            //   ],
+            // ),
+            // const SizedBox(height: 20),
             FutureBuilder<Map<String, int>>(
                 future: countsFuture,
                 builder: (context, snapshot) {
@@ -100,7 +109,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         borderRadius: BorderRadius.circular(10.0), // Rounded corners
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
             Text(
@@ -110,6 +119,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white), // White text
             ),
+            const SizedBox(height: 5),
             Text(
               'Count: $count',
               style: const TextStyle(

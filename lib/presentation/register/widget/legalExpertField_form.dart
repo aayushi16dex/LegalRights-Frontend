@@ -178,7 +178,7 @@ class _ExpertFormFieldWidget extends State<ExpertFormFieldWidget> {
                   ),
                 )
                 .toList(),
-            listType: MultiSelectListType.CHIP,
+            listType: MultiSelectListType.LIST,
             onConfirm: (values) {
               setState(() {
                 selectedExpertiseItems = values;

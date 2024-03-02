@@ -38,7 +38,7 @@ class _UserFooterScreenState extends State<UserFooterScreen> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           color: widget.currentTab == index
               ? const Color.fromARGB(255, 4, 37, 97)

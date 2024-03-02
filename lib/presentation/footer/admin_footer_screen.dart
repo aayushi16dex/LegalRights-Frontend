@@ -38,7 +38,7 @@ class _AdminFooterScreenState extends State<AdminFooterScreen> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           color: widget.currentTab == index
               ? const Color.fromARGB(255, 4, 37, 97)

@@ -48,7 +48,7 @@ class AppConfig {
   static String get signUpUrl => _createUrl('/user/register');
   static String get signInUrl => _createUrl('/user/login');
   static String get profileUrl => _createUrl('/user/profile');
-  static String get fetchexperts => _createUrl('/expert/fetch');
+  static String get fetchexpertListByUser => _createUrl('/expert/fetchList');
   static String get postquery => _createUrl('/askExpert/raiseQuery');
   static String get fetchquery => _createUrl('/askExpert/fetchQueries');
   static String get forgotPasswordUrl =>
@@ -61,6 +61,7 @@ class AppConfig {
   static String get fetchAnsweredQueries =>
       _createUrl('/expert/fetchAnsweredUserQueries');
   static String get answerQuery => _createUrl('/expert/answerQuery');
+  static String get fetchExpertById => _createUrl('/expert/fetch');
 
   // Admin Routes
   static String get changeExpertStatus => _createUrl('/admin/changeStatus');
@@ -84,7 +85,9 @@ class AppConfig {
   static String get fetchAllUser => _createUrl('/admin/fetchAllUser');
   static String get fetchUserById => _createUrl('/admin/fetchUser');
   // Organisaiton routes
-  static String get fetchOrganisation => _createUrl('/organisation/fetch');
+  static String get fetchOrganisationList =>
+      _createUrl('/organisation/fetchList');
+  static String get fetchOrganisationById => _createUrl('/organisation/fetch');
   // Legal content
   static String get fetchSections => _createUrl('/content/fetchSections');
   static String get addSection => _createUrl('/admin/section');

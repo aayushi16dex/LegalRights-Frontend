@@ -69,6 +69,8 @@ class LegalExpertScreenApiCall {
             '_id': query['_id'].toString(),
             'query': query['query'].toString(),
             'createdAt': query['createdAt'].toString(),
+            'askedBy':
+                "${query['userId']['firstName']} ${query['userId']['lastName']}"
           };
         }).toList();
 
@@ -112,6 +114,8 @@ class LegalExpertScreenApiCall {
             'response': query['response'].toString(),
             'createdAt': query['createdAt'].toString(),
             'updatedAt': query['updatedAt'].toString(),
+            'askedBy':
+                "${query['userId']['firstName']} ${query['userId']['lastName']}"
           };
         }).toList();
 
