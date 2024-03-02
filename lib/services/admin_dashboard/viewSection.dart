@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/legalContent_api/section_apiCall.dart';
+import 'package:frontend/api_call/section_api/section_apiCall.dart';
 import 'package:frontend/services/admin_dashboard/detailSection.dart';
 
 class ViewSection extends StatefulWidget {
