@@ -1,6 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/organisation_api/organisation_apiCall.dart';
-import 'package:frontend/presentation/admin_dashboard/build_card/build_organisationCard.dart';
 import 'package:frontend/presentation/child_dashboard/build_card/build_seekAssistanceCard.dart';
 import 'package:frontend/presentation/common/circular_progressBar.dart';
 
@@ -40,7 +41,7 @@ class _SeekAssistanceScreenState extends State<SeekAssistanceScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 4, 37, 97),
+                color: const Color.fromARGB(255, 4, 37, 97),
                 borderRadius: BorderRadius.circular(5.0),
               ),
               child: const Center(

@@ -1,6 +1,7 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/confirmation_alert/error_confirmation.dart';
 import 'package:http/http.dart' as http;
 import '../../core/TokenManager.dart';
 import '../../core/config.dart';
@@ -32,18 +33,16 @@ class AddSectionApiCall {
         }),
       );
       if (response.statusCode == 200) {
-        // Show success Snackbar
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Section added successfully'),
-            duration: Duration(seconds: 2), // Optional: Set the duration
+            duration: Duration(seconds: 2),
           ),
         );
       } else {
         showErrorConfirmation(context, 'Failed to add section');
       }
     } catch (error) {
-      // Handle network error and show error confirmation
       showErrorConfirmation(context, 'Network error');
     }
   }
@@ -54,14 +53,14 @@ void showErrorConfirmation(BuildContext context, String message) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Error'),
+        title: const Text('Error'),
         content: Text(message),
         actions: <Widget>[
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       );

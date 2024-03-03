@@ -1,11 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api, file_names, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/legalContent_api/deleteSection.dart';
-import 'package:frontend/services/admin_dashboard/viewSection.dart';
+import 'package:frontend/services/admin_dashboard/addSubSection.dart';
 
 class SectionDetailScreen extends StatefulWidget {
   final Map<String, dynamic> sectionData;
 
-  SectionDetailScreen(this.sectionData);
+  const SectionDetailScreen(this.sectionData, {super.key});
 
   @override
   _SectionDetailScreenState createState() => _SectionDetailScreenState();
@@ -23,7 +25,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
@@ -55,20 +57,19 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
+          title: const Text(
             "Confirmation",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 4, 37, 97)),
+                color: Color.fromARGB(255, 4, 37, 97)),
           ),
-          content: Text("Are you sure you want to delete this section?"),
+          content: const Text("Are you sure you want to delete this section?"),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context)
-                    .pop(false);
+                Navigator.of(context).pop(false);
               },
-              child: Text(
+              child: const Text(
                 "No",
                 style:
                     TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
@@ -76,10 +77,9 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
             ),
             TextButton(
               onPressed: () async {
-                Navigator.of(context)
-                    .pop(true);
+                Navigator.of(context).pop(true);
               },
-              child: Text(
+              child: const Text(
                 "Yes",
                 style:
                     TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
@@ -107,7 +107,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double maxFontSize = screenWidth * 0.05;
+    double maxFontSize = screenWidth * 0.07;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -120,6 +120,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
@@ -135,48 +136,57 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildDetailItem(
-                'Section Number', widget.sectionData['sectionNumber']),
-            _buildDetailItem('Title', widget.sectionData['title']),
-            _buildDetailItem('Total Units', widget.sectionData['totalUnits']),
-            _buildDetailItem('Sub Title', widget.sectionData['subTitle']),
-            _buildDetailItem('Summary', widget.sectionData['summary']),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Visibility(
-                  visible: false,
-                  child: Text('ID: ${widget.sectionData['_id']}'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 4, 37, 97),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+      body: SingleChildScrollView(
+        // Wrap your Column with SingleChildScrollView
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildDetailItem(
+                  'Section Number', widget.sectionData['sectionNumber']),
+              _buildDetailItem('Title', widget.sectionData['title']),
+              _buildDetailItem('Total Units', widget.sectionData['totalUnits']),
+              _buildDetailItem('Sub Title', widget.sectionData['subTitle']),
+              _buildDetailItem('Summary', widget.sectionData['summary']),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Visibility(
+                    visible: false,
+                    child: Text('ID: ${widget.sectionData['_id']}'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Handle adding a subsection
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddSubSectionScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Add Sub Section',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
-                onPressed: () {
-                  // Handle adding a subsection
-                },
-                child: const Text(
-                  'Add Sub Section',
-                  style: TextStyle(fontSize: 20),
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
