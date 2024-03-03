@@ -44,18 +44,12 @@ class BuildAddButton {
             }
           else if (buttonName == 'View Section')
             {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Dialog(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ViewSection(),
-                  );
-                },
-              )
-              //AddVideoService.pickVideo(context)
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ViewSection(),
+                ),
+              ),
             }
         },
         style: TextButton.styleFrom(

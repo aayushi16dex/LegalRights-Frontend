@@ -1,8 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api, file_names, unnecessary_const
+
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/section_api/section_apiCall.dart';
 import 'package:frontend/services/admin_dashboard/detailSection.dart';
 
 class ViewSection extends StatefulWidget {
+  const ViewSection({super.key});
+
   @override
   _ViewSectionState createState() => _ViewSectionState();
 }
@@ -35,6 +39,7 @@ class _ViewSectionState extends State<ViewSection> {
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+        centerTitle: true,
       ),
       body: FutureBuilder(
         future: sectionData,
@@ -59,19 +64,13 @@ class _ViewSectionState extends State<ViewSection> {
               itemCount: sortedList.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> sectionData = sortedList[index];
-
                 return GestureDetector(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: SectionDetailScreen(sectionData),
-                        );
-                      },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SectionDetailScreen(sectionData),
+                      ),
                     );
                   },
                   child: Card(

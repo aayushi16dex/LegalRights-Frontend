@@ -1,7 +1,7 @@
+// ignore_for_file: file_names, unnecessary_null_comparison, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/legalContent_api/addSection_api.dart';
-import 'package:frontend/api_call/section_api/section_apiCall.dart';
-
 class AddSection extends StatelessWidget {
   final TextEditingController sectionNumberController = TextEditingController();
   final TextEditingController totalUnitsController = TextEditingController();
@@ -10,6 +10,8 @@ class AddSection extends StatelessWidget {
   final TextEditingController summaryController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  AddSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,6 @@ class AddSection extends StatelessWidget {
                       submitForm(context);
                     }
                   },
-                  child: const Text('Submit', style: TextStyle(fontSize: 18)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 4, 37, 97),
                     shape: RoundedRectangleBorder(
@@ -151,6 +152,7 @@ class AddSection extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 32),
                   ),
+                  child: const Text('Submit', style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
               ),
             ],
