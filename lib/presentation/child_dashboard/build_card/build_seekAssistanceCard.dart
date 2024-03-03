@@ -7,8 +7,11 @@ class BuildSeekAssistanceCard {
   Widget buildSeekAssistanceCard(
       BuildContext context, Map<String, dynamic> data) {
     String orgName = data['organisationName'];
-    // String shortName = data['shortName'];
-    String shortName = 'aBC';
+    if (data['shortName'] != null) {
+      String shortName = data['shortName'];
+      orgName = "$orgName ($shortName)";
+    }
+    String about = data['description']['about'];
     String webUrl = data['websiteUrl'];
     AddCardDataWidget addCardDataWidget = AddCardDataWidget();
     SeekAssistanceCardService seekAssistanceCardService =
@@ -50,8 +53,8 @@ class BuildSeekAssistanceCard {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      addCardDataWidget.addCardData(shortName, ''),
                       addCardDataWidget.addCardData(orgName, ''),
+                      addCardDataWidget.addCardData('', about),
                     ],
                   ),
                 ),

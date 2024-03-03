@@ -8,7 +8,7 @@ class AddCardDataWidget {
         style: const TextStyle(
             color: Color.fromARGB(255, 4, 37, 97),
             fontSize: 16,
-            fontWeight: FontWeight.normal),
+            fontWeight: FontWeight.bold),
         children: [
           TextSpan(
             text: textName,

@@ -6,7 +6,6 @@ class BuildSectionCardBox {
   // Function to build a round-cornered box with text
   Widget buildSectionCardBox(
       Map<String, dynamic> section, BuildContext context) {
-    String sectionId = section['_id'];
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Card(
@@ -87,7 +86,7 @@ class BuildSectionCardBox {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SectionContent(),
+                      builder: (context) => SectionContent(section),
                     ),
                   );
                 },

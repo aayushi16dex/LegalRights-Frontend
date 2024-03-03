@@ -8,8 +8,12 @@ class BuildOrganisationCard {
   static Widget buildOrganisationCard(
       BuildContext context, Map<String, dynamic> data) {
     String orgName = data['organisationName'];
-    String shortName = data['shortName'];
-    String webUrl = data['websiteUrl'];
+    if (data['shortName'] != null) {
+      String shortName = data['shortName'];
+      orgName = "$orgName ($shortName)";
+    }
+    String about = data['description']['about'];
+
     return Card(
       color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -47,9 +51,8 @@ class BuildOrganisationCard {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AddCardData.addCardData(shortName, ''),
                       AddCardData.addCardData(orgName, ''),
-                      AddCardData.addCardData('Url: ', webUrl),
+                      AddCardData.addCardData('', about),
                     ],
                   ),
                 ),
@@ -57,8 +60,8 @@ class BuildOrganisationCard {
             ),
             const SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: ElevatedButton(

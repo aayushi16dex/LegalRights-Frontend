@@ -24,14 +24,13 @@ class SectionApiCall {
         final List<Map<String, dynamic>> sections = sectionList.map((query) {
           return {
             '_id': query['_id'].toString(),
-            'sectionNumber': query['sectionNumber'].toString(),
-            'totalUnits': query['totalUnits'].toString(),
+            'sectionNumber': query['sectionNumber'],
+            'totalUnits': query['totalUnits'],
             'title': query['title'].toString(),
             'subTitle': query['subTitle'].toString(),
             'summary': query['summary'].toString()
           };
         }).toList();
-
         return sections;
       } else {
         throw Exception('Failed to fetch sections');
