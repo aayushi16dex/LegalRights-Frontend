@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/userChild_api/fetchChild_apiCall.dart';
 import 'package:frontend/presentation/admin_dashboard/build_card/build_childUserCard.dart';
-import 'package:frontend/presentation/admin_dashboard/widget/buttons/build_addButton.dart';
 import 'package:frontend/presentation/common/circular_progressBar.dart';
 
 class ChildRoleScreen extends StatefulWidget {
@@ -40,7 +39,7 @@ class _ChildRoleScreenState extends State<ChildRoleScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 4, 37, 97),
+                color: const Color.fromARGB(255, 4, 37, 97),
                 borderRadius: BorderRadius.circular(5.0),
               ),
               child: Center(

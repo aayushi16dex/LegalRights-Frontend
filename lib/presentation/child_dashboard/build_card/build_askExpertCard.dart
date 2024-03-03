@@ -1,8 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/dialogue_alert/askQuery_alert.dart';
 import 'package:frontend/presentation/child_dashboard/widget/addData_cardWidget.dart';
 import 'package:frontend/services/admin_dashboard/legalExpert_cardService.dart';
-import 'package:frontend/presentation/admin_dashboard/widget/card_data/add_cardData.dart';
 
 class BuildAskExpertCard {
   AskQueryFormALert askQueryFormALert = AskQueryFormALert();
@@ -81,7 +82,8 @@ class BuildAskExpertCard {
                     },
                     style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color.fromARGB(255, 125, 125, 116),
+                        backgroundColor:
+                            const Color.fromARGB(255, 125, 125, 116),
                         textStyle: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold)),
                     child: const Text('Ask Query'),

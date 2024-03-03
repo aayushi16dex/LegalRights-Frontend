@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_expertAlertDataWidget.dart';
-import 'package:frontend/presentation/confirmation_alert/update_confirmation.dart';
 
 class ViewExpertDetailAlert {
   static Future<void> viewExpertDetailAlert(
@@ -12,7 +11,7 @@ class ViewExpertDetailAlert {
     } else {
       lastName = viewData['lastName'];
     }
-    String fullName = firstName + ' ' + lastName;
+    String fullName = '$firstName $lastName';
     String email = viewData['email'];
     int yrsExperience = viewData['experienceYears'];
     String professionName = viewData['profession']['professionName'];

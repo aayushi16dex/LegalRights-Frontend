@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: unnecessary_string_interpolations, use_build_context_synchronously, file_names, avoid_print
 import 'dart:convert';
 import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/api_call/profileData_api/profileData_apiCall.dart';
@@ -31,7 +31,7 @@ class SignInApiCall {
       if (userResponse.statusCode == 200) {
         final String role = data['userData']['role'] ?? '';
         final String authToken = data['token'] ?? '';
-        final String userId = data['userData']['_id'] ?? '';
+        //final String userId = data['userData']['_id'] ?? '';
         await TokenManager.storeAuthToken(authToken);
         ProfileHeaderDataApiCal.profileDataApi(context, authToken);
         SignInConfirmation.signInConfirmationAlert(context, role);

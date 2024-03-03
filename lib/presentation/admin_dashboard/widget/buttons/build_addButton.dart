@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/register/register_screen.dart';
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/add_dropdownDataFormAlert.dart';
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/add_organisationFormAlert.dart';
 import 'package:frontend/services/admin_dashboard/addSection.dart';
-import 'package:frontend/services/admin_dashboard/addVideoService.dart';
 import 'package:frontend/services/admin_dashboard/viewSection.dart';
 
 class BuildAddButton {
@@ -47,7 +48,7 @@ class BuildAddButton {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ViewSection(),
+                  builder: (context) => const ViewSection(),
                 ),
               ),
             }
@@ -58,7 +59,7 @@ class BuildAddButton {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
         ),
         child: Text(buttonName, style: const TextStyle(fontSize: 15)),
       ),

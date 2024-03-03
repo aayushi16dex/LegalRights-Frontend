@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, file_names, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
