@@ -61,7 +61,7 @@ class _UserFooterScreenState extends State<UserFooterScreen> {
             Icon(
               widget.currentTab == index ? selectedIcon : icon,
               size: 28,
-              color: widget.currentTab == index ? const Color.fromARGB(255, 4, 37, 97) : Color.fromARGB(255, 8, 56, 146),// Highlight the icon color
+              color: widget.currentTab == index ? const Color.fromARGB(255, 4, 37, 97) : const Color.fromARGB(255, 8, 56, 146),// Highlight the icon color
             ),
             Text(
               label,
