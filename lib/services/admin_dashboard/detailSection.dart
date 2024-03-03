@@ -137,7 +137,6 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        // Wrap your Column with SingleChildScrollView
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -171,11 +170,11 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
                     ),
                   ),
                   onPressed: () {
-                    // Handle adding a subsection
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AddSubSectionScreen(),
+                        builder: (context) => AddSubSectionScreen(sectionId: widget.sectionData['_id'],
+                        ),
                       ),
                     );
                   },

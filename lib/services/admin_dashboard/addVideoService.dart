@@ -1,11 +1,11 @@
-// ignore_for_file: unused_local_variable, file_names, avoid_print
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AddVideoService {
-  static Future<void> pickVideo(BuildContext context) async {
+  static Future<String?> pickVideo(BuildContext context) async {
     try {
       FilePickerResult? result;
       if (kIsWeb) {
@@ -22,16 +22,23 @@ class AddVideoService {
       }
 
       if (result != null && result.files.isNotEmpty) {
-        String filePath = kIsWeb
-            ? 'web_file'
-            : result.files.single.path ?? 'unknown_file_path';
+        String filePath;
+        if (kIsWeb) {
+          List<int> bytes = result.files.single.bytes ?? [];
+          filePath = base64Encode(bytes); // Encode the content
+        } else {
+          // On other platforms, use the file path
+          filePath = result.files.single.path ?? 'unknown_file_path';
+          print('Selected video file path: $filePath');
+        }
 
-        List<int> bytes = result.files.single.bytes ?? [];
-
-        print('Selected video file path: $filePath');
+        return filePath; // Return the selected video path or content
       }
+
+      return null; // Return null if no video is selected
     } catch (e) {
       print('Error picking video: $e');
+      return null; // Return null in case of an error
     }
   }
 }
