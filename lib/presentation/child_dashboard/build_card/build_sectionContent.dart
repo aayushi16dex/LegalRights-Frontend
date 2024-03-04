@@ -86,7 +86,7 @@ class BuildSectionCardBox {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SectionContent(section),
+                      builder: (context) => SectionContentScreen(section),
                     ),
                   );
                 },
