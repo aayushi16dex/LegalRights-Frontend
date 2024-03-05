@@ -16,6 +16,7 @@ class HeaderScreen extends StatefulWidget implements PreferredSizeWidget {
 class _HeaderScreenState extends State<HeaderScreen> {
   String profileName = '';
   String joinDate = '';
+  String initials = '';
   HeaderData hdata = HeaderData();
 
   @override
@@ -33,6 +34,7 @@ class _HeaderScreenState extends State<HeaderScreen> {
     setState(() {
       profileName = firstName + ' ' + lastName;
       joinDate = 'Joined On $joinedDate';
+      initials = firstName[0];
     });
   }
 
@@ -56,26 +58,17 @@ class _HeaderScreenState extends State<HeaderScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    profileName,
-                    style: const TextStyle(
+                    "Tiny Advocate",
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    joinDate,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 215, 213, 213),
-                      fontSize: 15.0,
+                      fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.left,
@@ -88,10 +81,27 @@ class _HeaderScreenState extends State<HeaderScreen> {
               child: Container(
                 margin: EdgeInsets.only(top: screenHeight * 0.001),
                 padding: const EdgeInsets.all(10.0),
-                child: const Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: 45,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 45,
+                      height: 45,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: Text(
+                          initials,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 4, 37, 97),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               onTap: () {

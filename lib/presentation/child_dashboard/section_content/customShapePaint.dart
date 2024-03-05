@@ -4,13 +4,13 @@ class CustomShapePainter extends CustomPainter {
   final bool isFacingLeft;
   final Color linePaintColor;
   final Color smallCirclePaintColor;
-  final VoidCallback? onPressed;
+  //final VoidCallback? onPressed;
 
   CustomShapePainter({
     required this.isFacingLeft,
     required this.linePaintColor,
     required this.smallCirclePaintColor,
-    this.onPressed,
+    //this.onPressed,
   });
 
   @override
@@ -35,7 +35,7 @@ class CustomShapePainter extends CustomPainter {
       ..strokeWidth = 2.0
       ..color = smallCirclePaintColor
       ..style = PaintingStyle.fill;
-    double smallCircleRadius = radius / 2;
+    double smallCircleRadius = radius / 1.3;
     canvas.drawCircle(center, smallCircleRadius, smallCirclePaint);
 
     // Draw the small circle inside with a different background color

@@ -43,11 +43,13 @@ class AppConfig {
     return '$_baseUrl$path';
   }
 
+  // Signin url
+  static String get signInUrl => _createUrl('/user/login');
+
   static String get userUrl => _createUrl('/user');
   static String get fetchDisplayPicture => _createUrl('/user');
   static String get userSignUpUrl => _createUrl('/user/register');
-  static String get legalExpertRegisterUrl => _createUrl('/admin/addExpert');
-  static String get signInUrl => _createUrl('/user/login');
+
   static String get profileUrl => _createUrl('/user/profile');
   static String get fetchexpertListByUser => _createUrl('/expert/fetchList');
   static String get postquery => _createUrl('/askExpert/raiseQuery');
@@ -64,15 +66,19 @@ class AppConfig {
   static String get answerQuery => _createUrl('/expert/answerQuery');
   static String get fetchExpertById => _createUrl('/expert/fetch');
 
-  // Admin Routes
-  static String get changeExpertStatus => _createUrl('/admin/changeStatus');
-  static String get deleteOrganisation =>
-      _createUrl('/admin/deleteOrganisation');
+  /* Admin Dashboard */
 
-  // add
-  static String get addProfession => _createUrl('/admin/addProfession');
   static String get addLanguage => _createUrl('/admin/addLanguage');
   static String get addExpertise => _createUrl('/admin/addExpertise');
+  static String get addProfession => _createUrl('/admin/addProfession');
+  static String get changeExpertStatus => _createUrl('/admin/changeStatus');
+  static String get legalExpertRegisterUrl => _createUrl('/admin/addExpert');
+  static String get addSection => _createUrl('/admin/section');
+  static String get deleteSection => _createUrl('/admin/deleteSection');
+
+  // Organisation Tab
+  static String get deleteOrganisation =>
+      _createUrl('/admin/deleteOrganisation');
   static String get addorEditOrganisation => _createUrl('/admin/organisation');
 
   //Fetch
@@ -85,13 +91,15 @@ class AppConfig {
       _createUrl('/admin/fetchExperts');
   static String get fetchAllUser => _createUrl('/admin/fetchAllUser');
   static String get fetchUserById => _createUrl('/admin/fetchUser');
+
   // Organisaiton routes
   static String get fetchOrganisationList =>
       _createUrl('/organisation/fetchList');
   static String get fetchOrganisationById => _createUrl('/organisation/fetch');
+
   // Legal content
   static String get fetchSections => _createUrl('/content/fetchSections');
-  static String get addSection => _createUrl('/admin/section');
-  static String get deleteSection => _createUrl('/admin/deleteSection');
+  static String get fetchSectionContentById =>
+      _createUrl('/content/fetchSection');
   static String get addSubSection => _createUrl('/admin/subSection');
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/customShapePaint.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.dart';
 
-class BuildSectionContent {
-  Widget buildSectionContent(
-      BuildContext context, Map<String, dynamic> section) {
-    dynamic totalUnit = section['totalUnits'];
+class SubSectionContent {
+  Widget buildSubSectionContent(BuildContext context,
+      Map<String, dynamic> sectionData, Map<String, dynamic> subSectionData) {
+    dynamic totalUnit = sectionData['totalUnits'];
     return Column(
       children: [
         // Top container with custom paint
@@ -21,7 +22,7 @@ class BuildSectionContent {
             children: [
               Center(
                 child: Text(
-                  '${section['title']}',
+                  '${sectionData['title']}',
                   style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
@@ -37,7 +38,7 @@ class BuildSectionContent {
               ),
               const SizedBox(height: 5),
               Text(
-                '${section['summary']}',
+                '${sectionData['summary']}',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
@@ -59,15 +60,25 @@ class BuildSectionContent {
                           width: 100,
                           height: 100,
                           margin: const EdgeInsets.all(5),
-                          child: CustomPaint(
-                            painter: CustomShapePainter(
-                              isFacingLeft: i.isEven,
-                              linePaintColor: i.isEven
-                                  ? const Color.fromARGB(255, 4, 37, 97)
-                                  : Color.fromARGB(255, 155, 146, 144),
-                              smallCirclePaintColor: i.isEven
-                                  ? const Color.fromARGB(255, 155, 146, 144)
-                                  : const Color.fromARGB(255, 4, 37, 97),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CustomVideoPlayer(),
+                                ),
+                              );
+                            },
+                            child: CustomPaint(
+                              painter: CustomShapePainter(
+                                isFacingLeft: i.isEven,
+                                linePaintColor: i.isEven
+                                    ? const Color.fromARGB(255, 4, 37, 97)
+                                    : const Color.fromARGB(255, 155, 146, 144),
+                                smallCirclePaintColor: i.isEven
+                                    ? const Color.fromARGB(255, 155, 146, 144)
+                                    : const Color.fromARGB(255, 4, 37, 97),
+                              ),
                             ),
                           ),
                         ),
