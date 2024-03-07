@@ -20,7 +20,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    String videoUrl = 'http://192.168.1.2:5000/uploads/exploitation.mp4';
+    // String videoUrl = 'http://localhost:5000/uploads/2e818b7d46f5b6441894e1ee93d56bac.mp4';
+    String videoUrl = "https://www.youtube.com/watch?v=R7fwt89Vbd0";
 
     _controller = VideoPlayerController.network(videoUrl);
     _initializeVideoPlayerFuture = _controller.initialize();
@@ -76,7 +77,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                   GestureDetector(
                     onTap: () {
                       _controller.seekTo(
-                          _controller.value.position - Duration(seconds: 5));
+                          _controller.value.position - const Duration(seconds: 5));
                     },
                     child: const Icon(
                       Icons.replay_5,
