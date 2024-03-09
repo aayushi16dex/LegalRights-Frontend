@@ -61,7 +61,7 @@ class SectionApiCall {
       );
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        final Map<String, dynamic> subSections = data['sectionData'][0];
+        final Map<String, dynamic> subSections = data['sectionData'];
         return subSections;
       } else {
         throw Exception('Failed to fetch sections by Id');
