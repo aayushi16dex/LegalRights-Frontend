@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api, file_names
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:frontend/services/register/registerForm_Service.dart';
 import 'package:frontend/model/signup_controller.dart';
 
@@ -18,8 +21,6 @@ class _CommonFormFieldWidgetState extends State<CommonFormFieldWidget> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
   String confirmPasswordError = '';
-
-  /// checking password with confirm password
   void checkPasswordMatch() {
     setState(() {
       confirmPasswordError = commonSignupController.passwordController.text ==
@@ -28,6 +29,9 @@ class _CommonFormFieldWidgetState extends State<CommonFormFieldWidget> {
           : 'Passwords do not match';
     });
   }
+
+  TextCapitalizationTextInputFormatter capitalizationFormatter =
+      TextCapitalizationTextInputFormatter();
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +43,11 @@ class _CommonFormFieldWidgetState extends State<CommonFormFieldWidget> {
             child: TextFormField(
               controller: commonSignupController.firstNameController,
               decoration: const InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                labelText: 'First Name',
+                labelStyle:
+                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              inputFormatters: [capitalizationFormatter],
             ),
           ),
           const SizedBox(width: 20.0),
@@ -49,11 +55,13 @@ class _CommonFormFieldWidgetState extends State<CommonFormFieldWidget> {
             child: TextFormField(
               controller: commonSignupController.lastNameController,
               decoration: const InputDecoration(
-                  labelText: 'Last Name',
-                  labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                labelText: 'Last Name',
+                labelStyle:
+                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              inputFormatters: [capitalizationFormatter],
             ),
-          )
+          ),
         ],
       ),
       const SizedBox(height: 16.0),
@@ -127,5 +135,19 @@ class _CommonFormFieldWidgetState extends State<CommonFormFieldWidget> {
             ),
           ),
     ]));
+  }
+}
+
+class TextCapitalizationTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isNotEmpty) {
+      return TextEditingValue(
+        text: newValue.text[0].toUpperCase() + newValue.text.substring(1),
+        selection: newValue.selection,
+      );
+    }
+    return newValue;
   }
 }

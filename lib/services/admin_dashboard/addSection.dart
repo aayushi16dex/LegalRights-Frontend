@@ -172,7 +172,6 @@ class AddSection extends StatelessWidget {
         subTitleController.text,
         summaryController.text,
       );
-      Navigator.pop(context);
     }
   }
 

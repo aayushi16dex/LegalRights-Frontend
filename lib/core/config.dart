@@ -51,6 +51,7 @@ class AppConfig {
   static String get userSignUpUrl => _createUrl('/user/register');
 
   static String get profileUrl => _createUrl('/user/profile');
+  static String get deleteProfile => _createUrl('/user/deleteAccount');
   static String get fetchexpertListByUser => _createUrl('/expert/fetchList');
   static String get postquery => _createUrl('/askExpert/raiseQuery');
   static String get fetchquery => _createUrl('/askExpert/fetchQueries');

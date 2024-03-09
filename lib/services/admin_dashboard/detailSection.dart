@@ -1,7 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/legalContent_api/deleteSection.dart';
+import 'package:frontend/api_call/legalContent_api/deleteSectionApi.dart';
+import 'package:frontend/presentation/child_dashboard/confirmation_alert/deleteSectionConfirmation.dart';
 import 'package:frontend/services/admin_dashboard/addSubSection.dart';
 
 class SectionDetailScreen extends StatefulWidget {
@@ -71,8 +72,9 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
               },
               child: const Text(
                 "No",
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Color.fromARGB(255, 4, 37, 97),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
@@ -82,7 +84,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
               child: const Text(
                 "Yes",
                 style:
-                    TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -93,11 +95,14 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
     if (shouldPop == true) {
       int? statusCode =
           await DeleteSectionApi.deleteSection(context, sectionId);
-
       if (statusCode == 200) {
-        showSnackBar('Section deleted successfully.');
-        Navigator.pop(context);
-        Navigator.pop(context);
+        DeleteSectionconfirmation deleteSectionconfirmation = DeleteSectionconfirmation();
+        deleteSectionconfirmation.deleteSectionConfirmationAlert(context);
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
       } else {
         showSnackBar('Failed to delete section. Status code: $statusCode');
       }
@@ -173,7 +178,8 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddSubSectionScreen(sectionId: widget.sectionData['_id'],
+                        builder: (context) => AddSubSectionScreen(
+                          sectionId: widget.sectionData['_id'],
                         ),
                       ),
                     );

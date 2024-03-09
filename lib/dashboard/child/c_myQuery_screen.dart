@@ -41,7 +41,7 @@ class _MyQueryScreenState extends State<MyQueryScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 4, 37, 97),
+                color: const Color.fromARGB(255, 4, 37, 97),
                 borderRadius: BorderRadius.circular(5.0),
               ),
               child: Center(
@@ -58,24 +58,38 @@ class _MyQueryScreenState extends State<MyQueryScreen> {
                 future: queryListFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // While waiting for data, show a loading indicator
                     return Center(
                       child: CustomeCircularProgressBar
                           .customeCircularProgressBar(),
                     );
                   } else if (snapshot.hasError) {
-                    // If an error occurs during the fetch, handle it here
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: pastQueriesList.length,
-                        itemBuilder: (context, index) {
-                          return buildMyQueriesCard.buildMyQueriesCard(
-                              context, pastQueriesList[index], index + 1);
-                        },
-                      ),
-                    );
+                    if (pastQueriesList.isEmpty) {
+                      return const Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'No Queries Asked.',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 4, 37, 97),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: pastQueriesList.length,
+                          itemBuilder: (context, index) {
+                            return buildMyQueriesCard.buildMyQueriesCard(
+                                context, pastQueriesList[index], index + 1);
+                          },
+                        ),
+                      );
+                    }
                   }
                 })
           ],

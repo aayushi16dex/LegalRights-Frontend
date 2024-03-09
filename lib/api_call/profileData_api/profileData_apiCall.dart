@@ -17,13 +17,15 @@ class ProfileHeaderDataApiCal {
         final Map<String, dynamic> data = json.decode(response.body);
         // Check if 'userData' is present and not null
         if (data['userData'] != null) {
+          String id = data['userData']['_id'];
           String userRole = data['userData']['role'];
           String fName = data['userData']['firstName'];
           String lName = data['userData']['lastName'] ?? " ";
           String joinDate = data['userData']['joinedOn'];
           String displayPic = data['userData']['displayPicture'] ?? " ";
 
-          HeaderData.setProfileData(fName, lName, joinDate, displayPic);
+          HeaderData.setProfileData(
+              id, userRole, fName, lName, joinDate, displayPic);
 
           return userRole;
         } else {

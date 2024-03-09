@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PostQueryconfirmation {
-  void postQueryConfirmationAlert(BuildContext context) {
+class DeleteSectionconfirmation {
+  void deleteSectionConfirmationAlert(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-        });
         return AlertDialog(
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -21,7 +17,7 @@ class PostQueryconfirmation {
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 10.0),
-              const Text('Query Posted Successfully !!'),
+              const Text('Section Deleted Successfully !!'),
             ],
           ),
         );

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double logoSize = MediaQuery.of(context).size.width * 0.6;
+    double logoSize = MediaQuery.of(context).size.width * 1.0;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 4, 37, 97),

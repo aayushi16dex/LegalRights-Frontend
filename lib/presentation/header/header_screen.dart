@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/model/header_data.dart';
-import 'package:frontend/presentation/app_start/splash_screen.dart';
+import 'package:frontend/services/common/ViewProfile/viewProfile.dart';
 
 class HeaderScreen extends StatefulWidget implements PreferredSizeWidget {
   const HeaderScreen({super.key});
@@ -32,18 +31,10 @@ class _HeaderScreenState extends State<HeaderScreen> {
     //final displayPic = hdata.getDisplayPic();
 
     setState(() {
-      profileName = firstName + ' ' + lastName;
+      profileName = '$firstName $lastName';
       joinDate = 'Joined On $joinedDate';
-      initials = firstName[0];
+      initials = firstName[0].toUpperCase();
     });
-  }
-
-  void signOut(BuildContext context) async {
-    await TokenManager.clearTokens();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SplashScreen()),
-    );
   }
 
   @override
@@ -105,21 +96,11 @@ class _HeaderScreenState extends State<HeaderScreen> {
                 ),
               ),
               onTap: () {
-                showMenu(
-                  context: context,
-                  position:
-                      const RelativeRect.fromLTRB(800.0, 0.0, 0.0, 1000.0),
-                  items: [
-                    PopupMenuItem(
-                      child: InkWell(
-                        child: const Text('Sign Out'),
-                        onTap: () {
-                          // Handle sign out
-                          signOut(context);
-                        },
-                      ),
-                    ),
-                  ],
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ViewProfileScreen(),
+                  ),
                 );
               },
             ),

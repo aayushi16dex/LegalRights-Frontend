@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/presentation/child_dashboard/confirmation_alert/addSectionConfirmation.dart';
 import 'package:http/http.dart' as http;
 import '../../core/TokenManager.dart';
 import '../../core/config.dart';
@@ -33,12 +34,15 @@ class AddSectionApiCall {
         }),
       );
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Section added successfully'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        AddSectionconfirmation addSectionconfirmation =
+            AddSectionconfirmation();
+        addSectionconfirmation.addSectionConfirmationAlert(context);
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
+      } else if (response.statusCode == 409) {
+        showErrorConfirmation(context, 'Section Number Already Exists');
       } else {
         showErrorConfirmation(context, 'Failed to add section');
       }
@@ -53,14 +57,26 @@ void showErrorConfirmation(BuildContext context, String message) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Error'),
+        title: const Text(
+          'Error',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 4, 37, 97),
+          ),
+        ),
         content: Text(message),
         actions: <Widget>[
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('OK'),
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 4, 37, 97),
+              ),
+            ),
           ),
         ],
       );

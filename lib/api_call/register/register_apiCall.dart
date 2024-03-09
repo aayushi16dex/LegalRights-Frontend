@@ -55,9 +55,11 @@ class RegisterApiCall {
         ErrorConfirmation.errorConfirmationAlert(context, errorMessage, error);
       }
     } catch (e) {
-      print(e);
       ErrorConfirmation.errorConfirmationAlert(
-          context, errorMessage, e.toString());
+          context, errorMessage, "Please fill in all the details correctly.");
     }
+    //   ErrorConfirmation.errorConfirmationAlert(
+    //       context, errorMessage, e.toString());
+    // }
   }
 }
