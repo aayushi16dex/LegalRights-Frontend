@@ -10,7 +10,14 @@ class ViewOrganisationDetailAlert {
     String orgAbout = viewData['description']['about'];
     String orgVision = viewData['description']['vision'];
     String orgMission = viewData['description']['mission'];
-    String shortName = viewData['shortName'];
+    String shortName;
+    if (viewData['shortName'] == null){
+      shortName = '';
+    }
+    else{
+      shortName = viewData['shortName'];
+    }
+    
     String webUrl = viewData['websiteUrl'];
     bool isEditMode = false;
     await showDialog<void>(
@@ -136,26 +143,28 @@ class ViewOrganisationDetailAlert {
                             (value) {
                       setState(() {
                         orgVision = value;
+
                       });
                     })
                   ],
                 ),
               ),
               actions: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 168, 1, 26),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10.0), // Rounded corners
+                if (!isEditMode)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 168, 1, 26),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Rounded corners
+                      ),
                     ),
+                    child: const Text('Close'),
                   ),
-                  child: const Text('Close'),
-                ),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -166,13 +175,13 @@ class ViewOrganisationDetailAlert {
                     foregroundColor: Colors.white,
                     backgroundColor: !isEditMode
                         ? const Color.fromARGB(255, 4, 37, 97)
-                        : Color.fromARGB(255, 81, 83, 85),
+                        : const Color.fromARGB(255, 168, 1, 26),
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(10.0), // Rounded corners
                     ),
                   ),
-                  child: Text(isEditMode ? 'Cancel update' : 'Edit Details'),
+                  child: Text(isEditMode ? 'Close' : 'Edit Details'),
                 ),
                 if (isEditMode)
                   ElevatedButton(

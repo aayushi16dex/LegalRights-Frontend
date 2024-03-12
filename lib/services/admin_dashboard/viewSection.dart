@@ -38,6 +38,7 @@ class _ViewSectionState extends State<ViewSection> {
             color: Colors.white,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         centerTitle: true,
       ),

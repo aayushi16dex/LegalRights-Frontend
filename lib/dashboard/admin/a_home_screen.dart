@@ -26,6 +26,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         'userCount': map['userCount'] ?? 0,
         'legalExpertCount': map['expertCount'] ?? 0,
         'organisationCount': map['organisationCount'] ?? 0,
+        'legalRightCount': map['legalRightCount'] ?? 0
       };
     } catch (e) {
       print('Error fetching count: $e');
@@ -33,6 +34,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         'userCount': 0,
         'legalExpertCount': 0,
         'organisationCount': 0,
+        'legalRightCount': 0
       };
     }
   }
@@ -70,6 +72,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     final legalExpertCount = snapshot.data!['legalExpertCount'];
                     final organisationCount =
                         snapshot.data!['organisationCount'];
+                    final legalRightCount = snapshot.data!['legalRightCount'];
                     return Expanded(
                       child: GridView.count(
                         crossAxisCount: 2,
@@ -78,7 +81,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           _buildCard('Children', userCount!),
                           _buildCard('Legal Experts', legalExpertCount!),
                           _buildCard('Organizations', organisationCount!),
-                          _buildCard('Legal Rights', 5),
+                          _buildCard('Legal Rights', legalRightCount!),
                         ],
                       ),
                     );

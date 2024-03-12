@@ -48,7 +48,11 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 4, 37, 97),
               ),
-              child: const Text('I Confirm!'),
+              child: const Text(
+                'I Confirm!',
+                style: TextStyle(
+                  color: Colors.white
+                ),),
             ),
           if (showPasswordInput)
             Column(
@@ -96,7 +100,12 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
                       ),
-                      child: const Text('Cancel'),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        ),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -105,7 +114,11 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 238, 32, 17),
                       ),
-                      child: const Text('Submit'),
+                      child: const Text(
+                        'Submit',
+                         style: TextStyle(
+                          color: Colors.white
+                        ),),
                     ),
                   ],
                 ),

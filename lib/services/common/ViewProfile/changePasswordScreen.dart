@@ -156,6 +156,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   'Change Password',
                   style: TextStyle(
                     fontSize: 18,
+                    color: Colors.white
                   ),
                 ),
               ),
