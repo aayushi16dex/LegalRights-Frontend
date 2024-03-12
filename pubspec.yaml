@@ -64,9 +64,5 @@ flutter:
     - assets/images/user-screen2.jpg
     - assets/images/user-screen3.png
     - assets/images/user-screen4.jpg
-    - assets/onboarding2.gif
-    - assets/onboarding3.gif
-    - assets/signin2.gif
-    - assets/signin3.gif
-    - assets/signup.gif
+    - assets/images/completion.gif
     
