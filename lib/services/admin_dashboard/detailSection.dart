@@ -122,6 +122,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: maxFontSize,
+            color: Colors.white,
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),

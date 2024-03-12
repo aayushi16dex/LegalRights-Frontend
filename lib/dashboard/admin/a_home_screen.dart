@@ -47,11 +47,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuildAddButton.buildAddButton(context, 'Add Quiz'),
+                // BuildAddButton.buildAddButton(context, 'Add Quiz'),
+                // const SizedBox(width: 2),
+                BuildAddButton.buildAddButton(context, 'Add Legal Content'),
                 const SizedBox(width: 2),
-                BuildAddButton.buildAddButton(context, 'Add Section'),
-                const SizedBox(width: 2),
-                BuildAddButton.buildAddButton(context, 'View Section'),
+                BuildAddButton.buildAddButton(context, 'View Legal Content'),
               ],
             ),
             const SizedBox(height: 20),

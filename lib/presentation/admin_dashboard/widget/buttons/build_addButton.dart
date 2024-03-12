@@ -29,7 +29,7 @@ class BuildAddButton {
             {AddDropDownDataAlertForm.addDropDownDataForm(context, buttonName)}
           else if (buttonName == 'Add Organisation')
             {AddOrganisationAlertForm.addOrganisationForm(context, buttonName)}
-          else if (buttonName == 'Add Section')
+          else if (buttonName == 'Add Legal Content')
             {
               showDialog(
                 context: context,
@@ -43,7 +43,7 @@ class BuildAddButton {
                 },
               )
             }
-          else if (buttonName == 'View Section')
+          else if (buttonName == 'View Legal Content')
             {
               Navigator.push(
                 context,
