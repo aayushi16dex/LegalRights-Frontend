@@ -4,13 +4,13 @@ class CustomShapePainter extends CustomPainter {
   final bool isFacingLeft;
   final Color linePaintColor;
   final Color smallCirclePaintColor;
-  //final VoidCallback? onPressed;
+  final dynamic buttonName;
 
   CustomShapePainter({
     required this.isFacingLeft,
+    required this.buttonName,
     required this.linePaintColor,
     required this.smallCirclePaintColor,
-    //this.onPressed,
   });
 
   @override
@@ -78,9 +78,9 @@ class CustomShapePainter extends CustomPainter {
 
     // Draw text on the button
     TextPainter textPainter = TextPainter(
-      text: const TextSpan(
-        text: 'Video',
-        style: TextStyle(
+      text: TextSpan(
+        text: buttonName,
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 18.0,
         ),
