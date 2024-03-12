@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/model/header_data.dart';
 import 'package:frontend/presentation/app_start/splash_screen.dart';
-import 'package:frontend/presentation/child_dashboard/confirmation_alert/deleteProfileConfirmation.dart';
 import 'package:frontend/presentation/child_dashboard/confirmation_alert/signOutConfirmation.dart';
-import 'package:frontend/api_call/userChild_api/deleteProfileApi.dart';
+import 'package:frontend/services/common/ViewProfile/accountInfoScreen.dart';
+import 'package:frontend/services/common/ViewProfile/changePasswordScreen.dart';
+import 'package:frontend/services/common/ViewProfile/deleteProfileScreen.dart';
 
 class ViewProfileScreen extends StatefulWidget {
   const ViewProfileScreen({Key? key}) : super(key: key);
@@ -22,15 +23,11 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
   bool hasLastNameChanges = false;
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
-
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
+  Map<String, bool> expandedStates = {
+    'AccountInfo': false,
+    'ChangePassword': false,
+    'DeleteProfile': false,
+  };
 
   @override
   void initState() {
@@ -51,74 +48,11 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     });
   }
 
-  void showDeleteConfirmationDialog(String userId) async {
-    bool shouldPop = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            "Confirmation",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 4, 37, 97),
-            ),
-          ),
-          content: const Text(
-            "Are you sure you want to delete your profile permanently?",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text(
-                "No",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 4, 37, 97),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text(
-                "Yes",
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (shouldPop == true) {
-      int? statusCode = await DeleteProfileApi.deleteProfile(context, userId);
-      DeleteProfileconfirmation deleteProfileconfirmation =
-          DeleteProfileconfirmation();
-      if (statusCode == 200) {
-        await TokenManager.clearTokens();
-        deleteProfileconfirmation.deleteProfileConfirmationAlert(context);
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const SplashScreen()),
-          );
-        });
-      } else {
-        showSnackBar('Failed to delete profile. Status code: $statusCode');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double maxFontSize = screenWidth * 0.07;
     double editIconSize = screenWidth * 0.1;
-    final id = hdata.getId();
     final userRole = hdata.getUserRole();
     String firstName = hdata.getFirstName();
     String lastName = hdata.getLastName();
@@ -126,261 +60,268 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     final displayPic = firstName[0].toUpperCase();
 
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          'My Profile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: maxFontSize,
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 4, 37, 97),
-        centerTitle: true,
-        actions: [
-          if (userRole == 'CHILD')
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                showDeleteConfirmationDialog(id);
-              },
-            ),
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 16),
-                width: screenWidth * 0.3,
-                height: screenWidth * 0.3,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color.fromARGB(255, 219, 223, 219),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 4, 37, 97),
-                    width: 2.0,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    displayPic,
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 4, 37, 97),
-                      fontSize: screenWidth * 0.25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: -8,
-                bottom: -8,
-                child: IconButton(
-                  icon: const Icon(Icons.edit_rounded,
-                      color: Color.fromARGB(255, 4, 37, 97)),
-                  iconSize: editIconSize,
-                  onPressed: () {
-                    // edit functionality here
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Joined Date: $joinedDate',
-            style: const TextStyle(
-              fontSize: 18,
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(
+            'My Profile',
+            style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: maxFontSize,
             ),
           ),
-          Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 16),
-                width: screenWidth * 0.9,
-                child: TextField(
-                  controller: firstNameController,
-                  style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 4, 37, 97)),
-                  onChanged: (value) {
-                    setState(() {
-                      hasFirstNameChanges = true;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'First Name',
-                    labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 105, 102, 102),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                width: screenWidth * 0.9,
-                child: TextField(
-                  controller: lastNameController,
-                  style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 4, 37, 97)),
-                  onChanged: (value) {
-                    setState(() {
-                      hasLastNameChanges = true;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Last Name',
-                    labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 105, 102, 102),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          if (hasFirstNameChanges || hasLastNameChanges)
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.bottomRight,
                   children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print(
-                              "Updated First Name: ${firstNameController.text}");
-                          print(
-                              "Updated Last Name: ${lastNameController.text}");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            4,
-                            37,
-                            97,
-                          ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16),
+                      width: screenWidth * 0.3,
+                      height: screenWidth * 0.3,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromARGB(255, 219, 223, 219),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 4, 37, 97),
+                          width: 2.0,
                         ),
-                        child: const Text(
-                          'Update Details',
+                      ),
+                      child: Center(
+                        child: Text(
+                          displayPic,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 4, 37, 97),
+                            fontSize: screenWidth * 0.25,
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextButton(
+                    Positioned(
+                      right: -8,
+                      bottom: -8,
+                      child: IconButton(
+                        icon: const Icon(Icons.edit_rounded,
+                            color: Color.fromARGB(255, 4, 37, 97)),
+                        iconSize: editIconSize,
                         onPressed: () {
-                          setState(() {
-                            firstNameController.text = firstName;
-                            lastNameController.text = lastName;
-                            hasFirstNameChanges = false;
-                            hasLastNameChanges = false;
-                          });
+                          // edit functionality here
                         },
-                        style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            117,
-                            113,
-                            112,
-                          ),
-                        ),
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                          ),
-                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-
-          const Spacer(),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text(
-                          "Sign Out Confirmation",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 4, 37, 97),
-                          ),
-                        ),
-                        content:
-                            const Text("Are you sure you want to sign out?"),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text(
-                              "No",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 4, 37, 97),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              signOut(context);
-                            },
-                            child: const Text(
-                              "Yes",
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 238, 32, 17),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                ),
-                child: const Text(
-                  'Sign Out',
-                  style: TextStyle(
+                const SizedBox(height: 16),
+                Text(
+                  '$firstName $lastName',
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                const SizedBox(height: 5),
+                Text(
+                  'Joined on $joinedDate',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 0.01 * screenWidth),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 4, 37, 97),
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      buildExpandableButton(
+                        'AccountInfo',
+                        'Account Info',
+                        Icons.info_outline,
+                        screenWidth,
+                        AccountInfoScreen(),
+                      ),
+                      const SizedBox(height: 8),
+                      buildExpandableButton(
+                        'ChangePassword',
+                        'Change Password',
+                        Icons.password,
+                        screenWidth,
+                        const ChangePasswordScreen(),
+                      ),
+                      if (userRole == 'CHILD')
+                        Column(
+                          children: [
+                            const SizedBox(height: 8),
+                            buildExpandableButton(
+                              'DeleteProfile',
+                              'Delete Account',
+                              Icons.delete_forever,
+                              screenWidth,
+                              const DeleteProfileScreen(),
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 40),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  "Sign Out Confirmation",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 4, 37, 97),
+                                  ),
+                                ),
+                                content: const Text(
+                                    "Are you sure you want to sign out?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(
+                                      "No",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 4, 37, 97),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      signOut(context);
+                                    },
+                                    child: const Text(
+                                      "Yes",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 238, 32, 17),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: 0.5 * screenWidth,
+                          margin: const EdgeInsets.only(
+                              top: 8, bottom: 48, right: 20, left: 20),
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 32, 17),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Log Out',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ));
+  }
+
+  Widget buildExpandableButton(
+    String key,
+    String buttonText,
+    IconData icon,
+    double screenWidth,
+    Widget expandedContent,
+  ) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              expandedStates.forEach((k, v) {
+                if (k != key) {
+                  expandedStates[k] = false;
+                }
+              });
+
+              expandedStates[key] = !expandedStates[key]!;
+            });
+          },
+          child: Container(
+            width: 0.8 * screenWidth,
+            margin: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 8),
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 4, 37, 97),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      icon,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      buttonText,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(
+                  expandedStates[key]!
+                      ? Icons.keyboard_double_arrow_up
+                      : Icons.keyboard_double_arrow_down,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (expandedStates[key]!)
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8, // Set width to 100%
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color.fromARGB(255, 4, 37, 97),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: expandedContent,
+          ),
+      ],
     );
   }
 }

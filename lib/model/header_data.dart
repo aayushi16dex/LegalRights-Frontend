@@ -5,6 +5,7 @@ class HeaderData {
   static String lastName = '';
   static String joinedDate = '';
   static String displayPic = '';
+  static String emailId = '';
 
   // To get the value
   String getId() {
@@ -31,11 +32,16 @@ class HeaderData {
     return displayPic;
   }
 
+  String getEmailId() {
+    return emailId;
+  }
+
 // To get the value
 
-  static void setProfileData(String userid, String role, String fName,
-      String lname, String joinDate, String displayPicture) {
+  static void setProfileData(String userid, String email, String role,
+      String fName, String lname, String joinDate, String displayPicture) {
     id = userid;
+    emailId = email;
     userRole = role;
     firstName = fName;
     lastName = lname;

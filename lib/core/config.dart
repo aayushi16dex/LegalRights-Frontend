@@ -57,6 +57,7 @@ class AppConfig {
   static String get fetchquery => _createUrl('/askExpert/fetchQueries');
   static String get forgotPasswordUrl =>
       _createUrl('/user/resetPasswordRequest');
+  static String get changePassword => _createUrl('/user/changePassword');
 
   // Legal Expert Routes
   static String get fetchQueriesCount => _createUrl('/expert/fetchCount');

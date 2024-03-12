@@ -18,6 +18,7 @@ class ProfileHeaderDataApiCal {
         // Check if 'userData' is present and not null
         if (data['userData'] != null) {
           String id = data['userData']['_id'];
+          String email = data['userData']['email'];
           String userRole = data['userData']['role'];
           String fName = data['userData']['firstName'];
           String lName = data['userData']['lastName'] ?? " ";
@@ -25,7 +26,7 @@ class ProfileHeaderDataApiCal {
           String displayPic = data['userData']['displayPicture'] ?? " ";
 
           HeaderData.setProfileData(
-              id, userRole, fName, lName, joinDate, displayPic);
+              id, email, userRole, fName, lName, joinDate, displayPic);
 
           return userRole;
         } else {
