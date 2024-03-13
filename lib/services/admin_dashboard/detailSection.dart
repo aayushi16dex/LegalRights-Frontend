@@ -131,7 +131,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            color: const Color.fromARGB(255, 168, 1, 26),
+            color: Colors.white,
             onPressed: () {
               showDeleteConfirmationDialog(widget.sectionData['_id']);
             },

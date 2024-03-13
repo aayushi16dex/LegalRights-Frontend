@@ -7,7 +7,7 @@ class BuildSeekAssistanceCard {
   Widget buildSeekAssistanceCard(
       BuildContext context, Map<String, dynamic> data) {
     String orgName = data['organisationName'];
-    if (data['shortName'] != null) {
+    if (data['shortName'] != "") {
       String shortName = data['shortName'];
       orgName = "$orgName ($shortName)";
     }

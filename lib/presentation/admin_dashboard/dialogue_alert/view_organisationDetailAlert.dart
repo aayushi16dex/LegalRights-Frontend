@@ -11,7 +11,7 @@ class ViewOrganisationDetailAlert {
     String orgVision = viewData['description']['vision'];
     String orgMission = viewData['description']['mission'];
     String shortName;
-    if (viewData['shortName'] == null){
+    if (viewData['shortName'] == ''){
       shortName = '';
     }
     else{

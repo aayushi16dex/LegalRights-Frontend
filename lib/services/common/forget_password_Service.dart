@@ -116,10 +116,15 @@ class ForgetPasswordService {
                 // Implement logic to send reset password email
                 sendResetPasswordEmail(emailController.text, context);
               },
-              child: const Text('Send Link'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 4, 37, 97),
               ),
+              child: const Text(
+                'Send Link',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                ),
             ),
           ],
         );

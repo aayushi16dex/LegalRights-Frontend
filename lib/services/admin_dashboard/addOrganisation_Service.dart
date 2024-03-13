@@ -18,7 +18,7 @@ class AddOrganisationService {
       'organisationName':
           organisationFormController.organisationNameController.text,
       'shortName':
-          'no name',
+          organisationFormController.organisationShortNameController.text,
       'description': {
         'about': orgAbout,
         'vision': orgvision,
