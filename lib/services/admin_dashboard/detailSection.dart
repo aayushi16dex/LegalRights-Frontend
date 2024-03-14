@@ -131,7 +131,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            color: Colors.red,
+            color: Colors.white,
             onPressed: () {
               showDeleteConfirmationDialog(widget.sectionData['_id']);
             },
@@ -182,7 +182,7 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
                     );
                   },
                   child: const Text(
-                    'Add Sub Section',
+                    'Add Content',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

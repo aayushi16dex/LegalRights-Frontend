@@ -8,7 +8,7 @@ class BuildOrganisationCard {
   static Widget buildOrganisationCard(
       BuildContext context, Map<String, dynamic> data) {
     String orgName = data['organisationName'];
-    if (data['shortName'] != null) {
+    if (data['shortName'] != '') {
       String shortName = data['shortName'];
       orgName = "$orgName ($shortName)";
     }
@@ -31,20 +31,34 @@ class BuildOrganisationCard {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: data['displayPicture'] != null
-                      ? NetworkImage(
-                          '${AppConfig.baseUrl}/${data['displayPicture']}')
-                      : null, // Set to null if image data is not present
-                  child: data['displayPicture'] == null
-                      ? const Icon(
-                          Icons.business,
-                          size: 50,
-                          color: Colors.grey,
-                        )
-                      : null, // Show Icon if image data is not present
+               Padding(
+                  padding:
+                      const EdgeInsets.all(10), // Add padding outside the container
+                  child: Container(
+                    decoration: data['organisationImage'] != ''
+                        ? BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: Colors.black,
+                                width: 2), // Black border with width 2
+                          )
+                        : null, // No border if organisation image is not shown
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: data['organisationImage'] != ''
+                          ? NetworkImage(
+                              '${AppConfig.baseUrl}/${data['organisationImage']}')
+                          : null, // Set to null if image data is not present
+                      child: data['organisationImage'] == ''
+                          ? const Icon(
+                              Icons.business,
+                              size: 50,
+                              color: Colors.grey,
+                            )
+                          : null, // Show Icon if image data is not present
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(

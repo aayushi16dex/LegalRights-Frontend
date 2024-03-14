@@ -5,7 +5,14 @@ import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.
 class SubSectionContent {
   Widget buildSubSectionContent(BuildContext context,
       Map<String, dynamic> sectionData, Map<String, dynamic> subSectionData) {
-    dynamic totalUnit = sectionData['totalUnits'];
+    // dynamic totalUnit = sectionData['totalUnits'];
+    dynamic totalUnit = 2;
+    Map<String, dynamic> videoUrlList = {
+      'Introduction Part 1': '${subSectionData["contentVideo1"]}',
+      'Introduction Part 2': '${subSectionData["contentVideo2"]}'
+    };
+
+    List<String> videoTitle = videoUrlList.keys.toList();
     return Column(
       children: [
         // Top container with custom paint
@@ -52,7 +59,7 @@ class SubSectionContent {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                for (int i = 0; i < totalUnit + 2; i++)
+                for (int i = 0; i < totalUnit; i++)
                   Column(
                     children: [
                       Center(
@@ -65,13 +72,18 @@ class SubSectionContent {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CustomVideoPlayer(),
+                                  builder: (context) => CustomVideoPlayer(
+                                    title: videoTitle[i],
+                                    videoUrl: videoUrlList[videoTitle[i]],
+                                    unitNumber: i + 1,
+                                  ),
                                 ),
                               );
                             },
                             child: CustomPaint(
                               painter: CustomShapePainter(
                                 isFacingLeft: i.isEven,
+                                buttonName: 'Unit ${i + 1}',
                                 linePaintColor: i.isEven
                                     ? const Color.fromARGB(255, 4, 37, 97)
                                     : const Color.fromARGB(255, 155, 146, 144),

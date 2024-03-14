@@ -34,18 +34,22 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: maxFontSize,
+            color: Colors.white
           ),
         ),
+         iconTheme: const IconThemeData(
+            color: Colors.white, // Set your desired color here
+          ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              callAdminHomeScreen(context);
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.close),
+        //     onPressed: () {
+        //       callAdminHomeScreen(context);
+        //     },
+        //   ),
+        // ],
       ),
       body: Column(
         children: [
@@ -112,8 +116,8 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                                             ? 'Video Uploaded'
                                             : 'Upload Video',
                                         style: const TextStyle(
-                                            fontSize:
-                                                16),
+                                            fontSize:16,
+                                            color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -165,7 +169,9 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                           child: const Text(
                             'Submit',
                             style:
-                                TextStyle(fontSize: 18),
+                                TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white),
                           ),
                         ),
                       ),
