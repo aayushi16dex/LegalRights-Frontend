@@ -125,19 +125,15 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
             color: Colors.white,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
+            color: Colors.red,
             onPressed: () {
               showDeleteConfirmationDialog(widget.sectionData['_id']);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              callAdminHomeScreen(context);
             },
           ),
         ],
