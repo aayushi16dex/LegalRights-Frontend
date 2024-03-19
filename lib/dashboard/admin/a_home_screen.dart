@@ -1,125 +1,170 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/admin_dashboard/widget/buttons/build_addButton.dart';
-import 'package:frontend/presentation/common/circular_progressBar.dart';
-import '../../api_call/homePage_api/admin_homePage_apiCall.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class AdminHomeScreen extends StatefulWidget {
-  const AdminHomeScreen({super.key});
+  const AdminHomeScreen({Key? key}) : super(key: key);
+
   @override
   _AdminHomeScreenState createState() => _AdminHomeScreenState();
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-  //AdminHomePageLogic adminHomePageLogic = AdminHomePageLogic();
-  late Future<Map<String, int>> countsFuture;
-  @override
-  void initState() {
-    super.initState();
-    countsFuture = fetchAdminHomePageCount(context);
-  }
+  final Map<String, double> dataMap = {
+    "Childrem": 17.73,
+    "Organisations": 23.52,
+    "Legal Experts": 29.41,
+    "Legal Rights": 29.41,
+  };
 
-  Future<Map<String, int>> fetchAdminHomePageCount(BuildContext context) async {
-    try {
-      final adminHomePageLogic = HomePageApiCall();
-      final map = await adminHomePageLogic.fetchCountApi(context);
-      return {
-        'userCount': map['userCount'] ?? 0,
-        'legalExpertCount': map['expertCount'] ?? 0,
-        'organisationCount': map['organisationCount'] ?? 0,
-        'legalRightCount': map['legalRightCount'] ?? 0
-      };
-    } catch (e) {
-      print('Error fetching count: $e');
-      return {
-        'userCount': 0,
-        'legalExpertCount': 0,
-        'organisationCount': 0,
-        'legalRightCount': 0
-      };
-    }
-  }
+  final List<Color> colorList = [
+    Color.fromARGB(255, 90, 154, 243),
+    Color.fromARGB(255, 62, 205, 224),
+    const Color(0xff3398F6),
+    Color.fromARGB(255, 25, 25, 220),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            child: Column(
               children: [
-                // BuildAddButton.buildAddButton(context, 'Add Quiz'),
-                // const SizedBox(width: 2),
-                BuildAddButton.buildAddButton(context, 'Add Legal Content'),
-                const SizedBox(width: 2),
-                BuildAddButton.buildAddButton(context, 'View Legal Content'),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      // Container(
+                      //   color: Theme.of(context).primaryColor,
+                      //   child: ListTile(
+                      //     contentPadding:
+                      //         const EdgeInsets.symmetric(horizontal: 30),
+                      //     title: Text(
+                      //       'Admin Dashboard!',
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .headline6
+                      //           ?.copyWith(color: Colors.white),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: PieChart(
+                    dataMap: dataMap,
+                    colorList: colorList,
+                    chartRadius: MediaQuery.of(context).size.width / 2,
+                    centerText: ".",
+                    ringStrokeWidth: 24,
+                    animationDuration: const Duration(seconds: 5),
+                    chartValuesOptions: const ChartValuesOptions(
+                      showChartValues: true,
+                      showChartValuesOutside: true,
+                      showChartValuesInPercentage: true,
+                      showChartValueBackground: false,
+                    ),
+                    legendOptions: const LegendOptions(
+                      showLegends: true,
+                      legendShape: BoxShape.rectangle,
+                      legendTextStyle: TextStyle(fontSize: 15),
+                      legendPosition: LegendPosition.bottom,
+                      showLegendsInRow: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(200)),
+                  ),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 40,
+                    mainAxisSpacing: 30,
+                    children: [
+                      itemDashboard(
+                          'Children: 3', Icons.person, Colors.deepOrange),
+                      itemDashboard(
+                          'Legal Experts: 5', Icons.people, Colors.green),
+                      itemDashboard(
+                          'Organisations : 4', Icons.house, Colors.purple),
+                      itemDashboard(
+                          'Legal Rights: 5', Icons.balance, Colors.brown),
+                    ],
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 20),
-            FutureBuilder<Map<String, int>>(
-                future: countsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CustomeCircularProgressBar
-                          .customeCircularProgressBar(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    final userCount = snapshot.data!['userCount'];
-                    final legalExpertCount = snapshot.data!['legalExpertCount'];
-                    final organisationCount =
-                        snapshot.data!['organisationCount'];
-                    final legalRightCount = snapshot.data!['legalRightCount'];
-                    return Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        childAspectRatio: 2.0,
-                        children: [
-                          _buildCard('Children', userCount!),
-                          _buildCard('Legal Experts', legalExpertCount!),
-                          _buildCard('Organizations', organisationCount!),
-                          _buildCard('Legal Rights', legalRightCount!),
-                        ],
-                      ),
-                    );
-                  }
-                }),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildCard(String title, int count) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      color: const Color.fromARGB(255, 4, 37, 97), // Dark blue background
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0), // Rounded corners
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white), // White text
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'Count: $count',
-              style: const TextStyle(
-                  fontSize: 16, color: Colors.white), // White text
+  Widget itemDashboard(String title, IconData iconData, Color background) =>
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.blue[900],
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 5),
+              color: Theme.of(context).primaryColor.withOpacity(.2),
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
           ],
         ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: background,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(iconData, color: Colors.white),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title.toUpperCase(),
+              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                    color: Colors.white,
+                  ),
+              selectionColor: Colors
+                  .white, // Assuming you want the selection color to be white as well
+            ),
+          ],
+        ),
+      );
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: AdminHomeScreen(),
+    theme: ThemeData(
+      primaryColor: Colors.blue, // Adjust primary color as needed
+      textTheme: TextTheme(
+        headline6:
+            TextStyle(color: Colors.white), // Adjust text color as needed
       ),
-    );
-  }
+    ),
+  ));
 }
