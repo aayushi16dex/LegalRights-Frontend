@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/api_call/legalExpert_api/legalExpertScreen_api.dart';
 import 'package:frontend/presentation/common/circular_progressBar.dart';
 import 'package:frontend/services/expert_dashboard/buildQueryCard_service.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class LegalExpertHomeScreen extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
   late int totalQueries = 0;
   late int answeredQueries = 0;
   late int unansweredQueries = 0;
+
+  final List<Color> colorList = [const Color.fromARGB(255, 62, 179, 66), const Color.fromARGB(255, 214, 31, 18)];
 
   @override
   void initState() {
@@ -61,7 +64,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Tinyadvocate is here to empower the youngest minds with awareness about their rights and responsibilities."',
+                      'Tiny Advocate is here to empower the youngest minds with awareness about their rights and responsibilities."',
                       style: TextStyle(
                         fontSize: 20,
                         color:
@@ -90,15 +93,56 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Add PieChart widget here
+                              PieChart(
+                                dataMap:  {
+                                  'Answered Queries':
+                                      answeredQueries.toDouble(),
+                                  'Unanswered Queries':
+                                      unansweredQueries.toDouble(),
+                                },
+                                colorList: colorList,
+                                chartRadius: 120, // Adjust the radius as needed
+                                centerText:
+                                    ".", // You can change this as needed
+                                ringStrokeWidth: 8,
+                                animationDuration: const Duration(seconds: 2),
+                                chartValuesOptions: const ChartValuesOptions(
+                                  showChartValues: true,
+                                  showChartValuesOutside: true,
+                                  showChartValuesInPercentage: true,
+                                  showChartValueBackground: false,
+                                ),
+                                legendOptions: const LegendOptions(
+                                  showLegends: true,
+                                  legendShape: BoxShape.rectangle,
+                                  legendTextStyle: TextStyle(fontSize: 15),
+                                  legendPosition: LegendPosition.bottom,
+                                  showLegendsInRow: true,
+                                ),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      20), // Add some space between the PieChart and the text
+                              
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
-                            // color: Color.fromARGB(255, 121, 118, 118),
                             color: const Color.fromARGB(255, 120, 124, 127),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                               Text(
                                 'Total Queries: $totalQueries',
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -123,7 +167,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                                 ),
                               )
                             ],
-                          ),
+                        ),
                         ),
                         const SizedBox(height: 50),
                         SizedBox(

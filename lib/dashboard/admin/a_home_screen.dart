@@ -14,14 +14,6 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   late Future<Map<String, int>> countsFuture;
-
-  final List<Color> colorList = [
-    const Color.fromARGB(255, 90, 154, 243),
-    const Color.fromARGB(255, 62, 205, 224),
-    const Color(0xff3398F6),
-    const Color.fromARGB(255, 25, 25, 220),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -68,17 +60,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 child: const Column(
                   children: [
-                    SizedBox(height: 50),
-                    // ListTile(
-                    //   contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                    //   title: Text(
-                    //     'Admin Dashboard!',
-                    //     style: Theme.of(context)
-                    //         .textTheme
-                    //         .headline6
-                    //         ?.copyWith(color: Colors.white),
-                    //   ),
-                    // ),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -99,65 +81,64 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     final legalRightCount = snapshot.data!['legalRightCount'];
                     return Column(
                       children: [
-                        Center(
-                          child: PieChart(
-                            dataMap: {
-                              'Childrens': userCount!.toDouble(),
-                              'Legal Experts': legalExpertCount!.toDouble(),
-                              'Organisations': organisationCount!.toDouble(),
-                              'Legal Rights': legalRightCount!.toDouble(),
-                            },
-                            colorList: colorList,
-                            chartRadius: MediaQuery.of(context).size.width / 2,
-                            centerText: ".",
-                            ringStrokeWidth: 24,
-                            animationDuration: const Duration(seconds: 5),
-                            chartValuesOptions: const ChartValuesOptions(
-                              showChartValues: true,
-                              showChartValuesOutside: true,
-                              showChartValuesInPercentage: true,
-                              showChartValueBackground: false,
-                            ),
-                            legendOptions: const LegendOptions(
-                              showLegends: true,
-                              legendShape: BoxShape.rectangle,
-                              legendTextStyle: TextStyle(fontSize: 15),
-                              legendPosition: LegendPosition.bottom,
-                              showLegendsInRow: true,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius:
-                                BorderRadius.only(topLeft: Radius.circular(200)),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(200),
+                            ),
                           ),
-                          child: GridView.count(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 40,
-                            mainAxisSpacing: 30,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              itemDashboard(
-                                  'Childrens: $userCount',
-                                  Icons.person,
-                                  Colors.deepOrange),
-                              itemDashboard(
-                                  'Legal Experts: $legalExpertCount',
-                                  Icons.people,
-                                  Colors.green),
-                              itemDashboard(
-                                  'Organisations : $organisationCount',
-                                  Icons.house,
-                                  Colors.purple),
-                              itemDashboard(
-                                  'Legal Rights: $legalRightCount',
-                                  Icons.balance,
-                                  Colors.brown),
+                              const Center(
+                                child: Text(
+                                  "Welcome Admin!",
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 4, 37, 97),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      10), // Add some space between the heading and paragraph
+                              const Text(
+                                "Empower experts, manage insights. Navigate the legal landscape with ease!",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 4, 37, 97),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      20), // Add more space between the paragraph and GridView
+                              GridView.count(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 40,
+                                mainAxisSpacing: 30,
+                                children: [
+                                  itemDashboard(
+                                      'Children: $userCount', Icons.person),
+                                  itemDashboard(
+                                    'Legal Experts: $legalExpertCount',
+                                    Icons.people,
+                                  ),
+                                  itemDashboard(
+                                    'Organisations : $organisationCount',
+                                    Icons.house,
+                                  ),
+                                  itemDashboard(
+                                    'Legal Rights: $legalRightCount',
+                                    Icons.balance,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -173,10 +154,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 
-  Widget itemDashboard(String title, IconData iconData, Color background) =>
-      Container(
+  Widget itemDashboard(String title, IconData iconData) => Container(
         decoration: BoxDecoration(
-          color: Colors.blue[900],
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -192,17 +172,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           children: [
             Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: background,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 4, 37, 97),
                 shape: BoxShape.circle,
               ),
               child: Icon(iconData, color: Colors.white),
             ),
             const SizedBox(height: 8),
             Text(
-              title.toUpperCase(),
+              title,
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
               selectionColor: Colors.white,
             ),
@@ -210,3 +191,44 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         ),
       );
 }
+
+
+/** Pie chart widget */
+
+//  final List<Color> colorList = [
+//     const Color.fromARGB(255, 4, 37, 97),
+//     const Color.fromARGB(255, 171, 171, 189),
+//     const Color.fromARGB(255, 4, 37, 97),
+//     const Color.fromARGB(255, 171, 171, 189),
+//   ];
+
+
+  // Center(
+                        //   child: PieChart(
+                        //     dataMap: {
+                        //       'Childrens': userCount!.toDouble(),
+                        //       'Legal Experts': legalExpertCount!.toDouble(),
+                        //       'Organisations': organisationCount!.toDouble(),
+                        //       'Legal Rights': legalRightCount!.toDouble(),
+                        //     },
+                        //     colorList: colorList,
+                        //     chartRadius: MediaQuery.of(context).size.width / 2,
+                        //     centerText: ".",
+                        //     ringStrokeWidth: 4,
+                        //     animationDuration: const Duration(seconds: 2),
+                        //     chartValuesOptions: const ChartValuesOptions(
+                        //       showChartValues: true,
+                        //       showChartValuesOutside: true,
+                        //       showChartValuesInPercentage: true,
+                        //       showChartValueBackground: false,
+                        //     ),
+                        //     legendOptions: const LegendOptions(
+                        //       showLegends: true,
+                        //       legendShape: BoxShape.rectangle,
+                        //       legendTextStyle: TextStyle(fontSize: 15),
+                        //       legendPosition: LegendPosition.top,
+                        //       showLegendsInRow: true,
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 20),
