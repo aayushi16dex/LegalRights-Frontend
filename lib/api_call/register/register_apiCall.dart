@@ -35,7 +35,6 @@ class RegisterApiCall {
             },
             body: jsonEncode(postData));
       } else {
-        // Handle unknown roles appropriately (throw an exception, set a default URL, etc.).
         throw Exception('Unknown role: $roleFromPostData');
       }
 
@@ -45,7 +44,7 @@ class RegisterApiCall {
         final String role = data['userData']['role'];
         final String authToken = data['token'] ?? '';
         await TokenManager.storeAuthToken(authToken);
-        ProfileHeaderDataApiCal.profileDataApi(context, authToken);
+        ProfileHeaderDataApiCal.profileDataApi(context);
         SignupConfirmation.signUpConfirmationAlert(context, role);
       } else if (response.statusCode == 409) {
         error = data['msg'];
@@ -58,8 +57,5 @@ class RegisterApiCall {
       ErrorConfirmation.errorConfirmationAlert(
           context, errorMessage, "Please fill in all the details correctly.");
     }
-    //   ErrorConfirmation.errorConfirmationAlert(
-    //       context, errorMessage, e.toString());
-    // }
   }
 }

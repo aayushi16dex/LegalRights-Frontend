@@ -70,7 +70,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                 color: Colors.white),
           ),
           iconTheme: const IconThemeData(
-            color: Colors.white, // Set your desired color here
+            color: Colors.white,
           ),
           backgroundColor: const Color.fromARGB(255, 4, 37, 97),
           centerTitle: true,
@@ -106,18 +106,18 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                         ),
                       ),
                     ),
-                    // Positioned(
-                    //   right: -8,
-                    //   bottom: -8,
-                    //   child: IconButton(
-                    //     icon: const Icon(Icons.edit_rounded,
-                    //         color: Color.fromARGB(255, 4, 37, 97)),
-                    //     iconSize: editIconSize,
-                    //     onPressed: () {
-                    //       // edit functionality here
-                    //     },
-                    //   ),
-                    // ),
+                    Positioned(
+                      right: -8,
+                      bottom: -8,
+                      child: IconButton(
+                        icon: const Icon(Icons.edit_rounded,
+                            color: Color.fromARGB(255, 4, 37, 97)),
+                        iconSize: editIconSize,
+                        onPressed: () {
+                          // edit functionality here
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -314,7 +314,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
         ),
         if (expandedStates[key]!)
           Container(
-            width: MediaQuery.of(context).size.width * 0.8, // Set width to 100%
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               border: Border.all(
                 color: const Color.fromARGB(255, 4, 37, 97),

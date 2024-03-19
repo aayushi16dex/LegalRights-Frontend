@@ -31,9 +31,8 @@ class SignInApiCall {
       if (userResponse.statusCode == 200) {
         final String role = data['userData']['role'] ?? '';
         final String authToken = data['token'] ?? '';
-        //final String userId = data['userData']['_id'] ?? '';
         await TokenManager.storeAuthToken(authToken);
-        ProfileHeaderDataApiCal.profileDataApi(context, authToken);
+        ProfileHeaderDataApiCal.profileDataApi(context);
         SignInConfirmation.signInConfirmationAlert(context, role);
       } else {
         error = data['msg'];

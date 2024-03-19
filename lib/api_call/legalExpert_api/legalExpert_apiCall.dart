@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, file_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:frontend/presentation/confirmation_alert/error_confirmation.dart';
 import 'package:http/http.dart' as http;
 import '../../core/TokenManager.dart';
@@ -27,7 +30,9 @@ class LegalExpertApiCall {
         ));
       }
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error during legal expert fetch fetch: $error'),
         duration: const Duration(seconds: 2),
@@ -57,7 +62,9 @@ class LegalExpertApiCall {
         ));
       }
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error during legal expert fetch fetch: $error'),
         duration: const Duration(seconds: 2),
@@ -84,7 +91,9 @@ class LegalExpertApiCall {
         throw Exception('Failed to fetch profile data');
       }
     } catch (error) {
-      print('Error fetching profile data: $error');
+      if (kDebugMode) {
+        print('Error fetching profile data: $error');
+      }
       throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error during expert fetch: $error'),
         duration: const Duration(seconds: 2),
@@ -103,16 +112,13 @@ class LegalExpertApiCall {
       final response =
           await http.put(Uri.parse(changeExpertStatusUrl), headers: {
         'Authorization': 'Bearer $authToken',
-        'Content-Type': 'application/json', // Adjust content type as needed
+        'Content-Type': 'application/json',
       });
       if (response.statusCode == 200) {
-        print("Expert deleted Successfully");
         return response.statusCode;
       } else if (response.statusCode == 404) {
-        print("Legal expert does not exists");
         return response.statusCode;
       } else {
-        print("Unable to deactivate legal expert");
         return response.statusCode;
       }
     } catch (e) {

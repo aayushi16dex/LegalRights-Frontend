@@ -7,7 +7,6 @@ class HeaderData {
   static String displayPic = '';
   static String emailId = '';
 
-  // To get the value
   String getId() {
     return id;
   }
@@ -35,8 +34,6 @@ class HeaderData {
   String getEmailId() {
     return emailId;
   }
-
-// To get the value
 
   static void setProfileData(String userid, String email, String role,
       String fName, String lname, String joinDate, String displayPicture) {

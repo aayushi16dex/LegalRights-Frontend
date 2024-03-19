@@ -1,9 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:frontend/model/header_data.dart';
 import 'package:frontend/services/common/ViewProfile/viewProfile.dart';
 
 class HeaderScreen extends StatefulWidget implements PreferredSizeWidget {
-  const HeaderScreen({super.key});
+  const HeaderScreen({Key? key});
 
   @override
   _HeaderScreenState createState() => _HeaderScreenState();
@@ -13,8 +15,6 @@ class HeaderScreen extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _HeaderScreenState extends State<HeaderScreen> {
-  String profileName = '';
-  String joinDate = '';
   String initials = '';
   HeaderData hdata = HeaderData();
 
@@ -26,13 +26,7 @@ class _HeaderScreenState extends State<HeaderScreen> {
 
   void showProfileDetails() {
     final firstName = hdata.getFirstName();
-    final lastName = hdata.getLastName();
-    final joinedDate = hdata.getJoinedDate();
-    //final displayPic = hdata.getDisplayPic();
-
     setState(() {
-      profileName = '$firstName $lastName';
-      joinDate = 'Joined On $joinedDate';
       initials = firstName[0].toUpperCase();
     });
   }
@@ -95,13 +89,16 @@ class _HeaderScreenState extends State<HeaderScreen> {
                   ],
                 ),
               ),
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const ViewProfileScreen(),
                   ),
                 );
+                if (result == 'refresh') {
+                  showProfileDetails();
+                }
               },
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -17,11 +18,15 @@ class AppConfig {
       //print('Checking URL: $url');
       if (await checkUrlAvailability(url)) {
         _baseUrl = url;
-        print('Base URL set to: $_baseUrl');
+        if (kDebugMode) {
+          print('Base URL set to: $_baseUrl');
+        }
         return;
       }
     }
-    print('No available base URL');
+    if (kDebugMode) {
+      print('No available base URL');
+    }
   }
 
   static Future<bool> checkUrlAvailability(String url) async {
@@ -58,6 +63,8 @@ class AppConfig {
   static String get forgotPasswordUrl =>
       _createUrl('/user/resetPasswordRequest');
   static String get changePassword => _createUrl('/user/changePassword');
+  static String get changeAccountInfo => _createUrl('/user/edit');
+  static String get changeExpertAccountInfo => _createUrl('/admin/editExpert');
 
   // Legal Expert Routes
   static String get fetchQueriesCount => _createUrl('/expert/fetchCount');
