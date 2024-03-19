@@ -10,7 +10,7 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final Map<String, double> dataMap = {
-    "Childrem": 17.73,
+    "Children": 17.73,
     "Organisations": 23.52,
     "Legal Experts": 29.41,
     "Legal Rights": 29.41,
@@ -33,29 +33,30 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(50),
-                    ),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   color: Color.fromARGB(255, 22, 0, 95),
+                  //   borderRadius: const BorderRadius.only(
+                  //     bottomRight: Radius.circular(50),
+                  //   ),
+                  // ),
                   child: Column(
                     children: [
                       const SizedBox(height: 50),
-                      // Container(
-                      //   color: Theme.of(context).primaryColor,
-                      //   child: ListTile(
-                      //     contentPadding:
-                      //         const EdgeInsets.symmetric(horizontal: 30),
-                      //     title: Text(
-                      //       'Admin Dashboard!',
-                      //       style: Theme.of(context)
-                      //           .textTheme
-                      //           .headline6
-                      //           ?.copyWith(color: Colors.white),
-                      //     ),
-                      //   ),
-                      // ),
+                      Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 30),
+                          title: Text(
+                            'Welcome Admin!',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(
+                                    color: Color.fromARGB(255, 22, 0, 95)),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -98,14 +99,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     crossAxisSpacing: 40,
                     mainAxisSpacing: 30,
                     children: [
-                      itemDashboard(
-                          'Children: 3', Icons.person, Colors.deepOrange),
-                      itemDashboard(
-                          'Legal Experts: 5', Icons.people, Colors.green),
-                      itemDashboard(
-                          'Organisations : 4', Icons.house, Colors.purple),
-                      itemDashboard(
-                          'Legal Rights: 5', Icons.balance, Colors.brown),
+                      itemDashboard('Children: 3', Icons.person,
+                          Color.fromARGB(255, 22, 0, 95)),
+                      itemDashboard('Legal Experts: 5', Icons.people,
+                          Color.fromARGB(255, 22, 0, 95)),
+                      itemDashboard('Organisations : 4', Icons.house,
+                          Color.fromARGB(255, 22, 0, 95)),
+                      itemDashboard('Legal Rights: 5', Icons.balance,
+                          Color.fromARGB(255, 22, 0, 95)),
                     ],
                   ),
                 ),
@@ -120,7 +121,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget itemDashboard(String title, IconData iconData, Color background) =>
       Container(
         decoration: BoxDecoration(
-          color: Colors.blue[900],
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -146,7 +147,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Text(
               title.toUpperCase(),
               style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
               selectionColor: Colors
                   .white, // Assuming you want the selection color to be white as well
