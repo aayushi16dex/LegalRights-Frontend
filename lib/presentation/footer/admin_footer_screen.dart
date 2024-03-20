@@ -34,7 +34,7 @@ class _AdminFooterScreenState extends State<AdminFooterScreen> {
             children: [
               _buildNavItem(Icons.home, Icons.home_outlined, 'Home', 0),
               _buildNavItem(
-                  Icons.person_2, Icons.person_2_outlined, 'Children', 1),
+                  Icons.book, Icons.book_outlined, 'Legal Content', 1),
               _buildNavItem(
                   Icons.person_4, Icons.person_4_outlined, 'Legal Expert', 2),
               _buildNavItem(
@@ -67,7 +67,8 @@ class _AdminFooterScreenState extends State<AdminFooterScreen> {
               // Highlight the icon color
               color: widget.currentTab == index
                   ? const Color.fromARGB(255, 4, 37, 97)
-                  : const Color.fromARGB(255, 8, 56, 146), // Highlight the icon color
+                  : const Color.fromARGB(
+                      255, 8, 56, 146), // Highlight the icon color
             ),
             Text(
               label,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/dashboard/admin/a_legalContent_screen.dart';
 import 'package:frontend/presentation/footer/admin_footer_screen.dart';
 import 'package:frontend/dashboard/admin/a_home_screen.dart';
-import 'package:frontend/dashboard/admin/a_child_screen.dart';
 import 'package:frontend/dashboard/admin/a_legalExpert_screen.dart';
 import 'package:frontend/dashboard/admin/a_organisation_screen.dart';
 import 'package:frontend/presentation/header/header_screen.dart';
@@ -43,7 +43,7 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
           children: const [
             // Your different screens go here
             AdminHomeScreen(),
-            ChildRoleScreen(),
+            LegalContentScreen(),
             LegalExpertRoleScreen(),
             OrganisationScreen(),
           ],
