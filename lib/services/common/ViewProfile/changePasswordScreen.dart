@@ -188,6 +188,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         labelStyle: const TextStyle(
           color: Color.fromARGB(255, 4, 37, 97),
           fontSize: 18,
+          fontWeight: FontWeight.bold
         ),
         errorText: errorText,
         errorStyle: const TextStyle(

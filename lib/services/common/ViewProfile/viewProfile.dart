@@ -51,7 +51,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double maxFontSize = screenWidth * 0.07;
+    double maxFontSize = screenWidth * 0.06;
     double editIconSize = screenWidth * 0.1;
     final userRole = hdata.getUserRole();
     String firstName = hdata.getFirstName();
@@ -84,7 +84,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                   alignment: Alignment.bottomRight,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(top: 16),
+                      margin: const EdgeInsets.only(top: 14),
                       width: screenWidth * 0.3,
                       height: screenWidth * 0.3,
                       decoration: BoxDecoration(

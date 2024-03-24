@@ -31,7 +31,7 @@ class SubSectionContent {
                 child: Text(
                   '${sectionData['title']}',
                   style: const TextStyle(
-                    fontSize: 23,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -47,7 +47,7 @@ class SubSectionContent {
               Text(
                 '${sectionData['summary']}',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.normal,
                   color: Colors.white,
                 ),

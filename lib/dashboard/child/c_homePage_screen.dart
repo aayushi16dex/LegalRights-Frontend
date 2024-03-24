@@ -42,14 +42,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   Text(
                     'Play, Learn, Know Your Rights \n\t\t\t\t Fun with Legal Insights!',
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         color: Color.fromARGB(255, 4, 37, 97),
                         fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.all(10),
@@ -62,7 +62,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 child: Text(
                   "Let's Start Learning",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 21,
                     fontWeight: FontWeight.bold,
                     color: Colors.white, // Adjust text color
                   ),

@@ -3,8 +3,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/homePage_api/admin_homePage_apiCall.dart';
-import 'package:pie_chart/pie_chart.dart';
-
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
 
@@ -191,44 +189,3 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         ),
       );
 }
-
-
-/** Pie chart widget */
-
-//  final List<Color> colorList = [
-//     const Color.fromARGB(255, 4, 37, 97),
-//     const Color.fromARGB(255, 171, 171, 189),
-//     const Color.fromARGB(255, 4, 37, 97),
-//     const Color.fromARGB(255, 171, 171, 189),
-//   ];
-
-
-  // Center(
-                        //   child: PieChart(
-                        //     dataMap: {
-                        //       'Childrens': userCount!.toDouble(),
-                        //       'Legal Experts': legalExpertCount!.toDouble(),
-                        //       'Organisations': organisationCount!.toDouble(),
-                        //       'Legal Rights': legalRightCount!.toDouble(),
-                        //     },
-                        //     colorList: colorList,
-                        //     chartRadius: MediaQuery.of(context).size.width / 2,
-                        //     centerText: ".",
-                        //     ringStrokeWidth: 4,
-                        //     animationDuration: const Duration(seconds: 2),
-                        //     chartValuesOptions: const ChartValuesOptions(
-                        //       showChartValues: true,
-                        //       showChartValuesOutside: true,
-                        //       showChartValuesInPercentage: true,
-                        //       showChartValueBackground: false,
-                        //     ),
-                        //     legendOptions: const LegendOptions(
-                        //       showLegends: true,
-                        //       legendShape: BoxShape.rectangle,
-                        //       legendTextStyle: TextStyle(fontSize: 15),
-                        //       legendPosition: LegendPosition.top,
-                        //       showLegendsInRow: true,
-                        //     ),
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 20),

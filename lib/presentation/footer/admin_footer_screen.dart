@@ -34,7 +34,7 @@ class _AdminFooterScreenState extends State<AdminFooterScreen> {
             children: [
               _buildNavItem(Icons.home, Icons.home_outlined, 'Home', 0),
               _buildNavItem(
-                  Icons.book, Icons.book_outlined, 'Legal Content', 1),
+                  Icons.school, Icons.school_outlined, 'Legal Content', 1),
               _buildNavItem(
                   Icons.person_4, Icons.person_4_outlined, 'Legal Expert', 2),
               _buildNavItem(

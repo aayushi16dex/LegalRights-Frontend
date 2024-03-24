@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/profileData_api/profileData_apiCall.dart';
 import 'package:frontend/api_call/userChild_api/changeAccountInfoApi.dart';
+import 'package:frontend/core/role.dart';
 import 'package:frontend/model/header_data.dart';
 import 'package:frontend/presentation/child_dashboard/confirmation_alert/accountInfoChangeConfirmation.dart';
 
@@ -13,14 +14,14 @@ class AccountInfoScreen extends StatefulWidget {
   _AccountInfoScreenState createState() => _AccountInfoScreenState();
 }
 
-class _AccountInfoScreenState extends State<AccountInfoScreen> {
-  final HeaderData hdata = HeaderData();
-  late TextEditingController firstNameController;
-  late TextEditingController lastNameController;
-  String previousFirstName = '';
-  String previousLastName = '';
-  String userRole = '';
+final HeaderData hdata = HeaderData();
+late TextEditingController firstNameController;
+late TextEditingController lastNameController;
+String previousFirstName = '';
+String previousLastName = '';
+String userRole = '';
 
+class _AccountInfoScreenState extends State<AccountInfoScreen> {
   @override
   void initState() {
     super.initState();
@@ -44,9 +45,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
           child: TextField(
             controller: firstNameController,
             style: const TextStyle(
-              fontSize: 21,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 4, 37, 97),
+              fontSize: 18,
+              color: Color.fromARGB(255, 105, 102, 102),
             ),
             onChanged: (value) {
               setState(() {});
@@ -55,13 +55,14 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
             decoration: InputDecoration(
               labelText: 'First Name',
               labelStyle: const TextStyle(
-                color: Color.fromARGB(255, 105, 102, 102),
-              ),
+                  color: Color.fromARGB(255, 4, 37, 97),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22),
               errorText: firstNameController.text.trim().isEmpty
                   ? 'First name cannot be empty.'
                   : null,
             ),
-            readOnly: userRole == 'ADMIN',
+            readOnly: userRole == roleAdmin,
           ),
         ),
         Container(
@@ -69,9 +70,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
           child: TextField(
             controller: lastNameController,
             style: const TextStyle(
-              fontSize: 21,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 4, 37, 97),
+              fontSize: 18,
+              color: Color.fromARGB(255, 105, 102, 102),
             ),
             onChanged: (value) {
               setState(() {});
@@ -80,10 +80,12 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
             decoration: const InputDecoration(
               labelText: 'Last Name',
               labelStyle: TextStyle(
-                color: Color.fromARGB(255, 105, 102, 102),
-              ),
+                  color: Color.fromARGB(255, 4, 37, 97),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22),
             ),
-            readOnly: userRole == 'ADMIN',
+            
+            readOnly: userRole == roleAdmin,
           ),
         ),
         Container(
@@ -92,15 +94,15 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
             initialValue: hdata.getEmailId(),
             readOnly: true,
             style: const TextStyle(
-              fontSize: 21,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 4, 37, 97),
+              fontSize: 18,
+              color: Color.fromARGB(255, 105, 102, 102),
             ),
             decoration: const InputDecoration(
               labelText: 'Email ID',
               labelStyle: TextStyle(
-                color: Color.fromARGB(255, 105, 102, 102),
-              ),
+                  color: Color.fromARGB(255, 4, 37, 97),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22),
             ),
           ),
         ),
@@ -112,34 +114,10 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (firstNameController.text.trim().isNotEmpty)
+                  if (firstNameController.text.trim().isNotEmpty ||userRole == roleChild || userRole == roleLegalExpert)
                     ElevatedButton(
                       onPressed: () async {
-                        ChangeAccountInfoApi changeAccountInfoApi =
-                            ChangeAccountInfoApi();
-                        var response =
-                            await changeAccountInfoApi.changeAccountInfo(
-                                context,
-                                hdata.getId(),
-                                firstNameController.text,
-                                lastNameController.text,
-                                userRole);
-                        if (response == 200) {
-                          AccountInfoChangeconfirmation
-                              accountInfoChangeconfirmation =
-                              AccountInfoChangeconfirmation();
-                          accountInfoChangeconfirmation
-                              .accountInfoChangeConfirmationAlert(context);
-
-                          await ProfileHeaderDataApiCal.profileDataApi(context);
-
-                          Future.delayed(const Duration(seconds: 2), () {
-                            Navigator.pop(context);
-                            Navigator.pop(context, 'refresh');
-                          });
-                        } else {
-                          showErrorConfirmation(context, "An Error Occured!!!");
-                        }
+                        updateAccountInfo(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
@@ -154,25 +132,27 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                       ),
                     ),
                   const SizedBox(width: 10),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        firstNameController.text = previousFirstName;
-                        lastNameController.text = previousLastName;
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 117, 113, 112),
-                    ),
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
+                  if (userRole == roleLegalExpert || userRole == roleChild)
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          firstNameController.text = previousFirstName;
+                          lastNameController.text = previousLastName;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 117, 113, 112),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -229,4 +209,28 @@ void showErrorConfirmation(BuildContext context, String message) {
       );
     },
   );
+}
+
+Future<void> updateAccountInfo(BuildContext context) async {
+  ChangeAccountInfoApi changeAccountInfoApi = ChangeAccountInfoApi();
+  var response = await changeAccountInfoApi.changeAccountInfo(
+      context,
+      hdata.getId(),
+      firstNameController.text,
+      lastNameController.text,
+      userRole);
+  if (response == 200) {
+    AccountInfoChangeconfirmation accountInfoChangeconfirmation =
+        AccountInfoChangeconfirmation();
+    accountInfoChangeconfirmation.accountInfoChangeConfirmationAlert(context);
+
+    await ProfileHeaderDataApiCal.profileDataApi(context);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pop(context);
+      Navigator.pop(context, 'refresh');
+    });
+  } else {
+    showErrorConfirmation(context, "An Error Occured!!!");
+  }
 }
