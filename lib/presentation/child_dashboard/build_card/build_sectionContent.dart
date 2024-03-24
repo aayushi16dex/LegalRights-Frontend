@@ -29,7 +29,7 @@ class BuildSectionCardBox {
                         Text(
                           "Section ${section['sectionNumber']}",
                           style: const TextStyle(
-                            fontSize: 25,
+                            fontSize: 21,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Anton',
@@ -53,18 +53,16 @@ class BuildSectionCardBox {
                       color: Colors.white, // Color of the line
                     ),
                     const SizedBox(height: 5),
-                    Center(
-                      child: Text(
-                        "Title: ${section['title']}",
+                    Text(
+                        "${section['title']}",
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Anton',
                         ),
                         textAlign: TextAlign.start,
                       ),
-                    ),
                     const SizedBox(height: 5),
                   ],
                 ),
@@ -94,7 +92,7 @@ class BuildSectionCardBox {
                   backgroundColor: Colors.white,
                   foregroundColor: const Color.fromARGB(255, 4, 37, 97),
                   textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
+                      fontSize: 21, fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(15), // Adjust the border radius

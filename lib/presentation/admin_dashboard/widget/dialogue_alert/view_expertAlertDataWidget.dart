@@ -4,9 +4,7 @@ class ViewExpertAlertDataWidget {
   static Widget viewExpertAlertDataWidget(String label, dynamic value,
       bool isDisabled, Function(dynamic) onChanged) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: 16.0,
-          horizontal: 8.0), // Add margin from top, left, and right
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
       child: _ViewExpertAlertDataWidget(
         label: label,
         value: value,
@@ -73,7 +71,7 @@ class _ViewExpertAlertDataWidget extends StatelessWidget {
       initialValue: '$value',
       style: TextStyle(
         color: isDisabled ? Colors.black : const Color.fromARGB(255, 4, 37, 97),
-        fontSize: 18, // Increased font size
+        fontSize: 18,
       ),
       enabled: !isDisabled,
       onChanged: isDisabled ? null : onChanged,
