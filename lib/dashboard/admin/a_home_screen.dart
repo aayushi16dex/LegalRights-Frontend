@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/homePage_api/admin_homePage_apiCall.dart';
+import 'package:frontend/model/header_data.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -14,8 +15,11 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   late Future<Map<String, int>> countsFuture;
+  HeaderData headerData = HeaderData();
+  late String name = "";
   @override
   void initState() {
+    name = "${headerData.getFirstName()} ${headerData.getLastName()}";
     super.initState();
     countsFuture = fetchAdminHomePageCount(context);
   }
@@ -92,19 +96,17 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Center(
+                              Center(
                                 child: Text(
-                                  "Welcome Admin!",
-                                  style: TextStyle(
+                                  "Welcome $name",
+                                  style: const TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 4, 37, 97),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                  height:
-                                      10), // Add some space between the heading and paragraph
+                              const SizedBox(height: 10),
                               const Text(
                                 "Empower experts, manage insights. Navigate the legal landscape with ease!",
                                 style: TextStyle(
@@ -113,9 +115,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(
-                                  height:
-                                      20), // Add more space between the paragraph and GridView
+                              const SizedBox(height: 20),
                               GridView.count(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),

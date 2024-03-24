@@ -28,18 +28,10 @@ class _ExpertFormFieldWidget extends State<ExpertFormFieldWidget> {
 
   @override
   void initState() {
-    // Fetch languages
     showLanguageList(context);
-
-    // Fetch professions
     showProfessionList(context);
-
-    // Fetch states
     showStateList(context);
-
-    // Fetch expertise
     showExpertiseList(context);
-
     super.initState();
   }
 
