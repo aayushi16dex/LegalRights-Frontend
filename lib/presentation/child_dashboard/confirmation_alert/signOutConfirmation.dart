@@ -17,7 +17,7 @@ class SignOutconfirmation {
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 10.0),
-              const Text('Signed Out Successfully !!'),
+              const Text('Logged Out Successfully !!'),
             ],
           ),
         );

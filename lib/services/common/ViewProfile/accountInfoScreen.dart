@@ -58,6 +58,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                   color: Color.fromARGB(255, 4, 37, 97),
                   fontWeight: FontWeight.bold,
                   fontSize: 22),
+              suffixIcon: userRole == roleChild || userRole == roleLegalExpert ? const Icon(Icons.edit, color: Colors.grey) : null,
               errorText: firstNameController.text.trim().isEmpty
                   ? 'First name cannot be empty.'
                   : null,
@@ -77,14 +78,14 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               setState(() {});
               _formatName(lastNameController, value);
             },
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Last Name',
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                   color: Color.fromARGB(255, 4, 37, 97),
                   fontWeight: FontWeight.bold,
                   fontSize: 22),
+               suffixIcon: userRole == roleChild || userRole == roleLegalExpert ? const Icon(Icons.edit, color: Colors.grey) : null,
             ),
-            
             readOnly: userRole == roleAdmin,
           ),
         ),
@@ -114,7 +115,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (firstNameController.text.trim().isNotEmpty ||userRole == roleChild || userRole == roleLegalExpert)
+                  if (firstNameController.text.trim().isNotEmpty &&
+                      (userRole == roleChild || userRole == roleLegalExpert))
                     ElevatedButton(
                       onPressed: () async {
                         updateAccountInfo(context);
