@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/app_start/splash_screen.dart';
 import 'package:frontend/core/config.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppConfig.initialize();
+  // Set up the platform implementation for flutter_inappwebview
+  WidgetsFlutterBinding.ensureInitialized();
+  //InAppWebViewPlatform.instance = InAppWebViewPlatform();
   runApp(const MyApp());
 }
 
