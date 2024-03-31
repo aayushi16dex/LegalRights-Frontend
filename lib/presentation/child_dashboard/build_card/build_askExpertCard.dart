@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/dialogue_alert/askQuery_alert.dart';
 import 'package:frontend/presentation/child_dashboard/widget/addData_cardWidget.dart';
-import 'package:frontend/services/admin_dashboard/legalExpert_cardService.dart';
+import 'package:frontend/services/child_dashboard/askExpert_cardService.dart';
 
 class BuildAskExpertCard {
   AskQueryFormALert askQueryFormALert = AskQueryFormALert();
@@ -63,7 +63,7 @@ class BuildAskExpertCard {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => {
-                      BuildLegalExpertCardService.onViewClick(
+                      BuildAskExpertCardService.onViewClick(
                           context, '${data['_id']}')
                     },
                     style: ElevatedButton.styleFrom(

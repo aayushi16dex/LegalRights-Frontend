@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/customShapePaint.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/webView.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SubSectionContent {
   Widget buildSubSectionContent(BuildContext context,
@@ -44,14 +46,14 @@ class SubSectionContent {
                 color: Colors.white, // Color of the line
               ),
               const SizedBox(height: 5),
-              Text(
-                '${sectionData['summary']}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white,
-                ),
-              ),
+              // Text(
+              //   '${sectionData['summary']}',
+              //   style: const TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.normal,
+              //     color: Colors.white,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -72,11 +74,14 @@ class SubSectionContent {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CustomVideoPlayer(
-                                    title: videoTitle[i],
-                                    videoUrl: videoUrlList[videoTitle[i]],
-                                    unitNumber: i + 1,
-                                  ),
+                                  // builder: (context) => CustomVideoPlayer(
+                                  //   title: videoTitle[i],
+                                  //   videoUrl: videoUrlList[videoTitle[i]],
+                                  //   unitNumber: i + 1,
+                                  // ),
+                                  builder: (context) => WebViewScreen(
+                                      // videoUrl: videoUrlList[videoTitle[i]],
+                                      ),
                                 ),
                               );
                             },
@@ -101,25 +106,25 @@ class SubSectionContent {
             ),
           ),
         ),
-        // Container(
-        //   width: double.infinity,
-        //   padding: const EdgeInsets.all(10.0),
-        //   margin: const EdgeInsets.all(3),
-        //   decoration: BoxDecoration(
-        //     color: const Color.fromARGB(255, 4, 37, 97),
-        //     borderRadius: BorderRadius.circular(5.0),
-        //   ),
-        //   child: Center(
-        //     child: Text(
-        //       '${section['title']}',
-        //       style: const TextStyle(
-        //         fontSize: 23,
-        //         fontWeight: FontWeight.bold,
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 4, 37, 97),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Center(
+            child: Text(
+              '${sectionData['summary']}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

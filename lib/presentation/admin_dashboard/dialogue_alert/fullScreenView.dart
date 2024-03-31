@@ -365,6 +365,7 @@ class _FullScreenViewState extends State<FullScreenView> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 backgroundColor: const Color.fromARGB(255, 4, 37, 97),
+                foregroundColor: Colors.white,
               ),
             )
           : null,
