@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/deleteOrganisation_alert.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/card_data/add_cardData.dart';

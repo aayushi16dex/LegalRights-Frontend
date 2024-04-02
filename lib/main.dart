@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/app_start/splash_screen.dart';
 import 'package:frontend/core/config.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
