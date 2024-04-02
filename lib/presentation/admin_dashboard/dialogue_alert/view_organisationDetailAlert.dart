@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_organisationAlertDataWidget.dart';
 import 'package:frontend/services/admin_dashboard/updateOrganisation_Service.dart';
 
@@ -10,6 +11,7 @@ class ViewOrganisationDetailAlert {
     String orgAbout = viewData['description']['about'];
     String orgVision = viewData['description']['vision'];
     String orgMission = viewData['description']['mission'];
+    String orgImage = viewData['organisationImage'];
     String shortName;
     if (viewData['shortName'] == ''){
       shortName = '';
@@ -216,4 +218,34 @@ class ViewOrganisationDetailAlert {
       },
     );
   }
+}
+
+displayOrganisationImage(orgImage) async{
+  await dotenv.load(fileName: '.env');
+  String? cloudUrl = dotenv.env['FETCH_IMAGE_URL']; 
+  Container(
+                    decoration: orgImage != ''
+                        ? BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: Colors.black,
+                                width: 2), // Black border with width 2
+                          )
+                        : null, // No border if organisation image is not shown
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: orgImage != ''
+                          ? NetworkImage(
+                              '$cloudUrl/$orgImage')
+                          : null, // Set to null if image data is not present
+                      child: orgImage == ''
+                          ? const Icon(
+                              Icons.business,
+                              size: 50,
+                              color: Colors.grey,
+                            )
+                          : null, // Show Icon if image data is not present
+                    ),
+                  );
 }

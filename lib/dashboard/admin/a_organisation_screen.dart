@@ -72,9 +72,19 @@ class _OrganisationScreenState extends State<OrganisationScreen> {
                         child: ListView.builder(
                       itemCount: orgList.length,
                       itemBuilder: (context, index) {
-                        return BuildOrganisationCard.buildOrganisationCard(
-                          context,
-                          orgList[index],
+                        return FutureBuilder<Widget>(
+                          future: BuildOrganisationCard.buildOrganisationCard(
+                              context, orgList[index]),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator(); // Or any other loading indicator
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              return snapshot.data!;
+                            }
+                          },
                         );
                       },
                     ));

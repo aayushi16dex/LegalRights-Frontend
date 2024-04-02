@@ -28,7 +28,16 @@ class BuildAddButton {
               buttonName == 'Add Profession')
             {AddDropDownDataAlertForm.addDropDownDataForm(context, buttonName)}
           else if (buttonName == 'Add Organisation')
-            {AddOrganisationAlertForm.addOrganisationForm(context, buttonName)}
+            {
+              // AddOrganisationAlertForm.addOrganisationForm(context, buttonName)
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddOrganisationAlertForm();
+                  },
+                )
+    
+              }
           else if (buttonName == 'Add Legal Content')
             {
               showDialog(

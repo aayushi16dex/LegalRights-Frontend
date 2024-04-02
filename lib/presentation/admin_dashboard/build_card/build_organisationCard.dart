@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/deleteOrganisation_alert.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/card_data/add_cardData.dart';
 import 'package:frontend/services/admin_dashboard/organisation_cardService.dart';
 
 class BuildOrganisationCard {
-  static Widget buildOrganisationCard(
-      BuildContext context, Map<String, dynamic> data) {
+  static Future<Widget> buildOrganisationCard(
+      BuildContext context, Map<String, dynamic> data) async {
+    await dotenv.load(fileName: '.env');
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+
     String orgName = data['organisationName'];
     if (data['shortName'] != '') {
       String shortName = data['shortName'];
@@ -31,9 +35,9 @@ class BuildOrganisationCard {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               Padding(
-                  padding:
-                      const EdgeInsets.all(10), // Add padding outside the container
+                Padding(
+                  padding: const EdgeInsets.all(
+                      10), // Add padding outside the container
                   child: Container(
                     decoration: data['organisationImage'] != ''
                         ? BoxDecoration(
@@ -48,7 +52,7 @@ class BuildOrganisationCard {
                       backgroundColor: Colors.transparent,
                       backgroundImage: data['organisationImage'] != ''
                           ? NetworkImage(
-                              '${AppConfig.baseUrl}/${data['organisationImage']}')
+                              '$cloudUrl/${data['organisationImage']}')
                           : null, // Set to null if image data is not present
                       child: data['organisationImage'] == ''
                           ? const Icon(

@@ -64,7 +64,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Tiny Advocate is here to empower the youngest minds with awareness about their rights and responsibilities."',
+                      'Tiny Advocate is here to empower the youngest minds with awareness about their rights and responsibilities.',
                       style: TextStyle(
                         fontSize: 20,
                         color:
