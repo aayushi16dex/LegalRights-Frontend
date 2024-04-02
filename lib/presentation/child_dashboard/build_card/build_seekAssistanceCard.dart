@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/child_dashboard/widget/addData_cardWidget.dart';
 import 'package:frontend/services/child_dashboard/seekAssistanceCard_Service.dart';
 
 class BuildSeekAssistanceCard {
-  Widget buildSeekAssistanceCard(
-      BuildContext context, Map<String, dynamic> data) {
+  static Future<Widget> buildSeekAssistanceCard(
+      BuildContext context, Map<String, dynamic> data) async {
+
+    await dotenv.load(fileName: '.env');
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
     String orgName = data['organisationName'];
+
     if (data['shortName'] != "") {
       String shortName = data['shortName'];
       orgName = "$orgName ($shortName)";
@@ -50,7 +54,7 @@ class BuildSeekAssistanceCard {
                       backgroundColor: Colors.transparent,
                       backgroundImage: data['organisationImage'] != ''
                           ? NetworkImage(
-                              '${AppConfig.baseUrl}/${data['organisationImage']}')
+                              '$cloudUrl/${data['organisationImage']}')
                           : null, // Set to null if image data is not present
                       child: data['organisationImage'] == ''
                           ? const Icon(
