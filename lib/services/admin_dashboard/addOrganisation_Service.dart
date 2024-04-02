@@ -6,7 +6,7 @@ import 'package:frontend/presentation/confirmation_alert/error_confirmation.dart
 
 class AddOrganisationService {
   static void postOrganisationData(BuildContext context,
-      OrganisationFormController organisationFormController) {
+      OrganisationFormController organisationFormController, String organisationImage) {
     String orgShortName = '';
     String orgAbout =
         organisationFormController.organisationAboutController.text;
@@ -26,7 +26,9 @@ class AddOrganisationService {
       },
       'websiteUrl':
           organisationFormController.organisationWebUrlController.text,
+        'organisationImage': organisationImage
     };
+
     print(orgData);
     Future<int> statusCode = OrganisationApiCall.addOrganisationApi(context, orgData);
     print(statusCode);
