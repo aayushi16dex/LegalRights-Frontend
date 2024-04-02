@@ -15,7 +15,7 @@ class AddImageService {
 
     if (pickedImage != null) {
       try {
-        String fileExtension = pickedImage.path.split('.').last.toLowerCase();
+        String fileExtension = pickedImage.name.split('.').last.toLowerCase();
         if (validExtensions.contains('.$fileExtension')) {
           imageUrl = await uploadImage(pickedImage);
           if (imageUrl != null) {

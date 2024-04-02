@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend/model/header_data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend/services/common/ViewProfile/profileImage.dart';
 import 'package:frontend/services/common/ViewProfile/viewProfile.dart';
 
 class HeaderScreen extends StatefulWidget implements PreferredSizeWidget {
@@ -24,8 +26,15 @@ class _HeaderScreenState extends State<HeaderScreen> {
     super.initState();
   }
 
+  fetchImage() async {
+    await dotenv.load(fileName: '.env');
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    return cloudUrl;
+  }
+
   void showProfileDetails() {
     final firstName = hdata.getFirstName();
+
     setState(() {
       initials = firstName[0].toUpperCase();
     });
@@ -34,6 +43,9 @@ class _HeaderScreenState extends State<HeaderScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    var displayPic = hdata.getDisplayPic();
+    final firstName = hdata.getFirstName();
+    Future<dynamic> cloudUrl = fetchImage();
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -66,33 +78,12 @@ class _HeaderScreenState extends State<HeaderScreen> {
               child: Container(
                 margin: EdgeInsets.only(top: screenHeight * 0.001),
                 padding: const EdgeInsets.all(10.0),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 45,
-                      height: 45,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                      child: Center(
-                        child: Text(
-                          initials,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 4, 37, 97),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                child: ProfileImage(cloudUrl: cloudUrl, displayPic: displayPic, firstName: firstName, initialsSize: 20,), 
               ),
               onTap: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(
+                MaterialPageRoute(
                     builder: (context) => const ViewProfileScreen(),
                   ),
                 );

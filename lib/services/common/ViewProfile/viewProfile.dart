@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
-import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/model/header_data.dart';
-import 'package:frontend/presentation/app_start/splash_screen.dart';
-import 'package:frontend/presentation/child_dashboard/confirmation_alert/signOutConfirmation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/services/common/ViewProfile/accountInfoScreen.dart';
 import 'package:frontend/services/common/ViewProfile/changePasswordScreen.dart';
 import 'package:frontend/services/common/ViewProfile/deleteProfileScreen.dart';
+import 'package:frontend/services/common/ViewProfile/profileImage.dart';
+import 'package:frontend/services/common/ViewProfile/signOutWidget.dart';
+import 'package:frontend/services/common/ViewProfile/updateDisplayImage.dart';
 
 class ViewProfileScreen extends StatefulWidget {
   const ViewProfileScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
   bool hasLastNameChanges = false;
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
+
   Map<String, bool> expandedStates = {
     'AccountInfo': false,
     'ChangePassword': false,
@@ -36,28 +38,23 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     lastNameController = TextEditingController(text: hdata.getLastName());
   }
 
-  void signOut(BuildContext context) async {
-    await TokenManager.clearTokens();
-    SignOutconfirmation signOutconfirmation = SignOutconfirmation();
-    signOutconfirmation.signOutConfirmationAlert(context);
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SplashScreen()),
-      );
-    });
+  fetchImage() async {
+    await dotenv.load(fileName: '.env');
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    return cloudUrl;
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double maxFontSize = screenWidth * 0.06;
-    double editIconSize = screenWidth * 0.1;
     final userRole = hdata.getUserRole();
     String firstName = hdata.getFirstName();
     String lastName = hdata.getLastName();
     final joinedDate = hdata.getJoinedDate();
-    final displayPic = firstName[0].toUpperCase();
+    var displayPic = hdata.getDisplayPic();
+
+    Future<dynamic> cloudUrl = fetchImage();
 
     return Scaffold(
         key: _scaffoldKey,
@@ -80,45 +77,33 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 14),
-                      width: screenWidth * 0.3,
-                      height: screenWidth * 0.3,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color.fromARGB(255, 219, 223, 219),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 4, 37, 97),
-                          width: 2.0,
-                        ),
+                const SizedBox(height: 16),
+                ProfileImage(cloudUrl: cloudUrl, displayPic: displayPic, firstName: firstName, initialsSize: 40),            
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () async {
+                    String? newDisplayPic =
+                        await UpdateDisplayImage.updateDisplayPicture(context);
+                        setState(() {
+                          displayPic = newDisplayPic;
+                        });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 22, 0, 95),
+                      textStyle: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold)),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.edit,
+                        size: 25,
                       ),
-                      child: Center(
-                        child: Text(
-                          displayPic,
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 4, 37, 97),
-                            fontSize: screenWidth * 0.25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      right: -8,
-                      bottom: -8,
-                      child: IconButton(
-                        icon: const Icon(Icons.edit_rounded,
-                            color: Color.fromARGB(255, 4, 37, 97)),
-                        iconSize: editIconSize,
-                        onPressed: () {
-                          // edit functionality here
-                        },
-                      ),
-                    ),
-                  ],
+                      SizedBox(width: 5),
+                      Text('Edit profile picture'),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -148,7 +133,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                   ),
                   child: Column(
                     children: [
-                      buildExpandableButton(
+                     buildExpandableButton(
                         'AccountInfo',
                         'Account Info',
                         Icons.info_outline,
@@ -177,72 +162,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                           ],
                         ),
                       const SizedBox(height: 40),
-                      GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text(
-                                  "Log Out",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 4, 37, 97),
-                                  ),
-                                ),
-                                content: const Text(
-                                    "Are you sure you want to log out?"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text(
-                                      "No",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 4, 37, 97),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      signOut(context);
-                                    },
-                                    child: const Text(
-                                      "Yes",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 238, 32, 17),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Container(
-                          width: 0.5 * screenWidth,
-                          margin: const EdgeInsets.only(
-                              top: 8, bottom: 48, right: 20, left: 20),
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 238, 32, 17),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Log Out',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      SignOutWidget.signOut(context)
                     ],
                   ),
                 ),
@@ -252,7 +172,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
         ));
   }
 
-  Widget buildExpandableButton(
+   Widget buildExpandableButton(
     String key,
     String buttonText,
     IconData icon,

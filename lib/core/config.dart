@@ -51,19 +51,9 @@ class AppConfig {
   // Signin url
   static String get signInUrl => _createUrl('/user/login');
 
-  static String get userUrl => _createUrl('/user');
-  static String get fetchDisplayPicture => _createUrl('/user');
-  static String get userSignUpUrl => _createUrl('/user/register');
-
-  static String get profileUrl => _createUrl('/user/profile');
-  static String get deleteProfile => _createUrl('/user/deleteAccount');
   static String get fetchexpertListByUser => _createUrl('/expert/fetchList');
   static String get postquery => _createUrl('/askExpert/raiseQuery');
   static String get fetchquery => _createUrl('/askExpert/fetchQueries');
-  static String get forgotPasswordUrl =>
-      _createUrl('/user/resetPasswordRequest');
-  static String get changePassword => _createUrl('/user/changePassword');
-  static String get changeAccountInfo => _createUrl('/user/edit');
   static String get changeExpertAccountInfo => _createUrl('/admin/editExpert');
 
   // Legal Expert Routes
@@ -111,4 +101,17 @@ class AppConfig {
   static String get fetchSectionContentById =>
       _createUrl('/content/fetchSection');
   static String get addSubSection => _createUrl('/admin/subSection');
+
+  // User profile 
+    static String get forgotPasswordUrl =>
+      _createUrl('/user/resetPasswordRequest');
+  static String get changePassword => _createUrl('/user/changePassword');
+  static String get changeAccountInfo => _createUrl('/user/edit');
+    static String get userUrl => _createUrl('/user');
+  static String get fetchDisplayPicture => _createUrl('/user');
+  static String get userSignUpUrl => _createUrl('/user/register');
+  static String get profileUrl => _createUrl('/user/profile');
+  static String get deleteProfile => _createUrl('/user/deleteAccount');
+  static String get uploadProfilePicture => _createUrl('/user/uploadProfilePicture');
+
 }
