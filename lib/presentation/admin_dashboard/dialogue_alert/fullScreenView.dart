@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/legalExpert_api/adminLegalExpertFieldApi.dart';
+import 'package:frontend/api_call/legalExpert_api/legalExpertDetailUpdateApi.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_expertAlertDataWidget.dart';
+import 'package:frontend/presentation/child_dashboard/confirmation_alert/LegalExpertDetailChangeConfirmationAlert.dart';
 
 class FullScreenView extends StatefulWidget {
+  final String id;
   final String fullName;
   final String email;
   final int yrsExperience;
@@ -15,6 +18,7 @@ class FullScreenView extends StatefulWidget {
 
   const FullScreenView({
     Key? key,
+    required this.id,
     required this.fullName,
     required this.email,
     required this.yrsExperience,
@@ -33,9 +37,9 @@ class _FullScreenViewState extends State<FullScreenView> {
   bool _isEditMode = false;
   late TextEditingController _fullNameController;
   late TextEditingController _emailController;
-  late TextEditingController _experienceController;
   late String _selectedProfession;
   late String _selectedState;
+  late int _selectedExperience;
   late List<String> _selectedLanguages;
   late List<String> _selectedExpertises;
 
@@ -49,10 +53,9 @@ class _FullScreenViewState extends State<FullScreenView> {
     super.initState();
     _fullNameController = TextEditingController(text: widget.fullName);
     _emailController = TextEditingController(text: widget.email);
-    _experienceController =
-        TextEditingController(text: widget.yrsExperience.toString());
     _selectedProfession = widget.professionName;
     _selectedState = widget.stateName;
+    _selectedExperience = widget.yrsExperience;
     _selectedLanguages = List<String>.from(widget.languageList);
     _selectedExpertises = List<String>.from(widget.expertiseList);
     _fetchData();
@@ -67,14 +70,12 @@ class _FullScreenViewState extends State<FullScreenView> {
     setState(() {
       _isLoading = false;
     });
-    //print(expertiseListField);
   }
 
   @override
   void dispose() {
     _fullNameController.dispose();
     _emailController.dispose();
-    _experienceController.dispose();
     super.dispose();
   }
 
@@ -147,12 +148,37 @@ class _FullScreenViewState extends State<FullScreenView> {
                       !_isEditMode,
                       (value) {},
                     ),
-                  ViewExpertAlertDataWidget.viewExpertAlertDataWidget(
-                    'Experience years',
-                    widget.yrsExperience.toString(),
-                    !_isEditMode,
-                    (value) {},
-                  ),
+                  if (_isEditMode)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: _selectedExperience.toString(),
+                        decoration: const InputDecoration(
+                          labelText: 'Experience years',
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 4, 37, 97),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedExperience = int.tryParse(value) ?? 0;
+                          });
+                        },
+                      ),
+                    )
+                  else
+                    ViewExpertAlertDataWidget.viewExpertAlertDataWidget(
+                      'Experience years',
+                      widget.yrsExperience.toString(),
+                      !_isEditMode,
+                      (value) {},
+                    ),
                   if (_isEditMode)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -317,20 +343,60 @@ class _FullScreenViewState extends State<FullScreenView> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              ChangeLegalDetailInfoApi
+                                  changeLegalDetailInfoApi =
+                                  ChangeLegalDetailInfoApi();
+                              var response = await changeLegalDetailInfoApi
+                                  .changeLegalAccountInfo(
+                                context,
+                                widget.id,
+                                _selectedExperience,
+                                _selectedProfession,
+                                _selectedState,
+                                _selectedLanguages,
+                                _selectedExpertises,
+                              );
+                              if (response == 200) {
+                                LegalExpertChangeconfirmation
+                                    legalExpertChangeconfirmation =
+                                    LegalExpertChangeconfirmation();
+                                legalExpertChangeconfirmation
+                                    .legalExpertChangeConfirmationAlert(
+                                        context);
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                });
+                              } else if (response == 403) {
+                                showErrorConfirmation(
+                                    context, 'Access Denied!!!');
+                              } else {
+                                showErrorConfirmation(
+                                    context, "An Error Occured!!!");
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  const Color.fromARGB(255, 4, 37, 97),
+                                  const Color.fromRGBO(4, 37, 97, 1),
                             ),
                             child: const Text('Update',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    fontSize: 20,
                                     color: Colors.white)),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               setState(() {
                                 _isEditMode = false;
+                                _selectedProfession = widget.professionName;
+                                _selectedState = widget.stateName;
+                                _selectedExperience = widget.yrsExperience;
+                                _selectedLanguages =
+                                    List<String>.from(widget.languageList);
+                                _selectedExpertises =
+                                    List<String>.from(widget.expertiseList);
                               });
                             },
                             style: ElevatedButton.styleFrom(
@@ -340,36 +406,75 @@ class _FullScreenViewState extends State<FullScreenView> {
                               'Cancel',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                   color: Colors.black),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  const SizedBox(height: 20),
+                  if (!_isEditMode && !_isLoading)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              setState(() {
+                                _isEditMode = true;
+                              });
+                            },
+                            label: const Text(
+                              'Edit',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            backgroundColor:
+                                const Color.fromARGB(255, 4, 37, 97),
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
-      floatingActionButton: !_isEditMode && !_isLoading
-          ? AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              width: 100,
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  setState(() {
-                    _isEditMode = true;
-                  });
-                },
-                label: const Text(
-                  'Edit',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                backgroundColor: const Color.fromARGB(255, 4, 37, 97),
-                foregroundColor: Colors.white,
-              ),
-            )
-          : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+}
+
+void showErrorConfirmation(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Error',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 4, 37, 97),
+          ),
+        ),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 4, 37, 97),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }

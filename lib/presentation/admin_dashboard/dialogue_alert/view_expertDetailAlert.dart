@@ -4,6 +4,7 @@ import 'package:frontend/presentation/admin_dashboard/dialogue_alert/fullScreenV
 class ViewExpertDetailAlert {
   static Future<void> viewExpertDetailAlert(
       BuildContext context, Map<String, dynamic> viewData) async {
+    String id = viewData['_id'] ?? '';
     String firstName = viewData['firstName'] ?? '';
     String lastName = viewData['lastName'] ?? '';
     String fullName = '$firstName $lastName';
@@ -23,6 +24,7 @@ class ViewExpertDetailAlert {
 
     await Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => FullScreenView(
+        id: id,
         fullName: fullName,
         email: email,
         yrsExperience: yrsExperience,

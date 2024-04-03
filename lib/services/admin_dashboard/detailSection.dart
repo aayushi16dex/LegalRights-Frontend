@@ -101,7 +101,6 @@ class _SectionDetailScreenState extends State<SectionDetailScreen> {
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pop(context);
           Navigator.pop(context);
-          Navigator.pop(context);
         });
       } else {
         showSnackBar('Failed to delete section. Status code: $statusCode');

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: unnecessary_string_interpolations, use_build_context_synchronously, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
 import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/api_call/profileData_api/profileData_apiCall.dart';
