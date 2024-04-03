@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/dialogue_alert/deleteOrganisation_alert.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/card_data/add_cardData.dart';
@@ -8,8 +7,12 @@ import 'package:frontend/services/admin_dashboard/organisation_cardService.dart'
 class BuildOrganisationCard {
   static Future<Widget> buildOrganisationCard(
       BuildContext context, Map<String, dynamic> data) async {
-    await dotenv.load(fileName: '.env');
-    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    String? cloudUrl;
+    try {
+      cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    } catch (e) {
+      print(e);
+    }
 
     String orgName = data['organisationName'];
     if (data['shortName'] != '') {

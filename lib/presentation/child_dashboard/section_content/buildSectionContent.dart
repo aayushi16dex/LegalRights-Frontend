@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/customShapePaint.dart';
-import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/webView.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class SubSectionContent {
   Widget buildSubSectionContent(BuildContext context,

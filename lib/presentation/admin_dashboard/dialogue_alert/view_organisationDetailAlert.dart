@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_organisationAlertDataWidget.dart';
@@ -220,8 +221,7 @@ class ViewOrganisationDetailAlert {
   }
 }
 
-displayOrganisationImage(orgImage) async{
-  await dotenv.load(fileName: '.env');
+displayOrganisationImage(orgImage){
   String? cloudUrl = dotenv.env['FETCH_IMAGE_URL']; 
   Container(
                     decoration: orgImage != ''

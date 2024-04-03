@@ -15,7 +15,7 @@ class AddImageService {
 
     if (pickedImage != null) {
       try {
-        String fileExtension = pickedImage.path.split('.').last.toLowerCase();
+        String fileExtension = pickedImage.name.split('.').last.toLowerCase();
         if (validExtensions.contains('.$fileExtension')) {
           imageUrl = await uploadImage(pickedImage);
           if (imageUrl != null) {
@@ -38,7 +38,6 @@ class AddImageService {
   }
 
   Future<String?> uploadImage(XFile imageFile) async {
-    await dotenv.load(fileName: '.env');
     String? cloudUrl = dotenv.env['UPLOAD_IMAGE_URL'];
     final url = Uri.parse(cloudUrl!);
 
