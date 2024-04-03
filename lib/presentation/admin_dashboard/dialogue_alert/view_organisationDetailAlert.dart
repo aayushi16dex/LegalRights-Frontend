@@ -221,8 +221,7 @@ class ViewOrganisationDetailAlert {
   }
 }
 
-displayOrganisationImage(orgImage) async{
-  await dotenv.load(fileName: '.env');
+displayOrganisationImage(orgImage){
   String? cloudUrl = dotenv.env['FETCH_IMAGE_URL']; 
   Container(
                     decoration: orgImage != ''

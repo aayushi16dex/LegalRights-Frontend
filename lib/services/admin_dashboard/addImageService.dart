@@ -38,7 +38,6 @@ class AddImageService {
   }
 
   Future<String?> uploadImage(XFile imageFile) async {
-    await dotenv.load(fileName: '.env');
     String? cloudUrl = dotenv.env['UPLOAD_IMAGE_URL'];
     final url = Uri.parse(cloudUrl!);
 

@@ -24,58 +24,46 @@ class _ProfileImageState extends State<ProfileImage> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        FutureBuilder(
-          future: widget.cloudUrl,
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2,
-                  ), // Add black border
-                ),
-                child: CircleAvatar(
-                  radius: widget.initialsSize,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: widget.displayPic.isNotEmpty
-                      ? NetworkImage('${snapshot.data}/${widget.displayPic}')
-                      : null, // Set to null if image data is not present
-                  child: widget.displayPic.isEmpty
-                      ? Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            Text(
-                              widget.firstName.isNotEmpty
-                                  ? widget.firstName[0].toUpperCase()
-                                  : '',
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 6, 65, 113),
-                                fontSize: widget.initialsSize,
-                              ),
-                            ),
-                          ],
-                        )
-                      : null,
-                ),
-              );
-            }
-          },
-        ),
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.black,
+              width: 2,
+            ), // Add black border
+          ),
+          child: CircleAvatar(
+            radius: widget.initialsSize,
+            backgroundColor: Colors.transparent,
+            backgroundImage: widget.displayPic.isNotEmpty
+                ? NetworkImage('${widget.cloudUrl}${widget.displayPic}')
+                : null, // Set to null if image data is not present
+            child: widget.displayPic.isEmpty
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                      Text(
+                        widget.firstName.isNotEmpty
+                            ? widget.firstName[0].toUpperCase()
+                            : '',
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 6, 65, 113),
+                          fontSize: widget.initialsSize,
+                        ),
+                      ),
+                    ],
+                  )
+                : null,
+          ),
+        )
       ],
     );
   }

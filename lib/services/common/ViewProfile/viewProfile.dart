@@ -38,12 +38,6 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     lastNameController = TextEditingController(text: hdata.getLastName());
   }
 
-  fetchImage() async {
-    await dotenv.load(fileName: '.env');
-    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
-    return cloudUrl;
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -54,7 +48,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     final joinedDate = hdata.getJoinedDate();
     var displayPic = hdata.getDisplayPic();
 
-    Future<dynamic> cloudUrl = fetchImage();
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
 
     return Scaffold(
         key: _scaffoldKey,

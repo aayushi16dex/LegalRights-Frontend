@@ -71,4 +71,5 @@ flutter:
     - assets/images/user-screen3.png
     - assets/images/user-screen4.jpg
     - assets/images/completion.gif
+    - .env
     

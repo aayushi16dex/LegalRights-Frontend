@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/app_start/splash_screen.dart';
 import 'package:frontend/core/config.dart';
 
@@ -8,6 +9,11 @@ Future<void> main() async {
   // Set up the platform implementation for flutter_inappwebview
   WidgetsFlutterBinding.ensureInitialized();
   //InAppWebViewPlatform.instance = InAppWebViewPlatform();
+  try {
+    await dotenv.load();
+  } catch (error) {
+    print(error);
+  }
   runApp(const MyApp());
 }
 

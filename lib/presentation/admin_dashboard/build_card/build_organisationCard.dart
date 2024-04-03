@@ -7,8 +7,12 @@ import 'package:frontend/services/admin_dashboard/organisation_cardService.dart'
 class BuildOrganisationCard {
   static Future<Widget> buildOrganisationCard(
       BuildContext context, Map<String, dynamic> data) async {
-    await dotenv.load(fileName: '.env');
-    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    String? cloudUrl;
+    try {
+      cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+    } catch (e) {
+      print(e);
+    }
 
     String orgName = data['organisationName'];
     if (data['shortName'] != '') {

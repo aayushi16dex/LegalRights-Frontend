@@ -26,15 +26,8 @@ class _HeaderScreenState extends State<HeaderScreen> {
     super.initState();
   }
 
-  fetchImage() async {
-    await dotenv.load(fileName: '.env');
-    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
-    return cloudUrl;
-  }
-
   void showProfileDetails() {
     final firstName = hdata.getFirstName();
-
     setState(() {
       initials = firstName[0].toUpperCase();
     });
@@ -45,7 +38,9 @@ class _HeaderScreenState extends State<HeaderScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     var displayPic = hdata.getDisplayPic();
     final firstName = hdata.getFirstName();
-    Future<dynamic> cloudUrl = fetchImage();
+    String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
+
+    print(displayPic);
 
     return AppBar(
       automaticallyImplyLeading: false,

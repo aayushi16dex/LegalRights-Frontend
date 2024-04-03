@@ -6,8 +6,6 @@ import 'package:frontend/services/child_dashboard/seekAssistanceCard_Service.dar
 class BuildSeekAssistanceCard {
   static Future<Widget> buildSeekAssistanceCard(
       BuildContext context, Map<String, dynamic> data) async {
-
-    await dotenv.load(fileName: '.env');
     String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
     String orgName = data['organisationName'];
 
