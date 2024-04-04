@@ -10,13 +10,14 @@ class UpdateDisplayImage {
   static Future<String> updateDisplayPicture(context) async {
     AddImageService addImageService = AddImageService();
     String? imageUrl = await addImageService.addImage(context);
-    if (imageUrl != null){
+    if (imageUrl != null) {
       UploadProfilePicApi uploadProfilePicApi = UploadProfilePicApi();
       var response =
-          await uploadProfilePicApi.uploadProfilePic(context, imageUrl!);
+          await uploadProfilePicApi.uploadProfilePic(context, imageUrl);
 
       if (response.statusCode == 200) {
-        UpdateImageConfirmationAlert.showImageUpdateConfirmationDialog(context, "Profile picture");
+        UpdateImageConfirmationAlert.showImageUpdateConfirmationDialog(
+            context, "Profile picture");
         Map<String, dynamic> responseData = json.decode(response.body);
         String displayPicture = responseData['displayPicture'];
         return displayPicture;

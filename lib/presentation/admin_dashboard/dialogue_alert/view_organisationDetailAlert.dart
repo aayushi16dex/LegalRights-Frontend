@@ -1,4 +1,5 @@
-// ignore: file_names
+// ignore_for_file: unused_local_variable, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_organisationAlertDataWidget.dart';

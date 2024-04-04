@@ -40,7 +40,7 @@ class _HeaderScreenState extends State<HeaderScreen> {
     final firstName = hdata.getFirstName();
     String? cloudUrl = dotenv.env['FETCH_IMAGE_URL'];
 
-    print(displayPic);
+    //print(displayPic);
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -73,12 +73,17 @@ class _HeaderScreenState extends State<HeaderScreen> {
               child: Container(
                 margin: EdgeInsets.only(top: screenHeight * 0.001),
                 padding: const EdgeInsets.all(10.0),
-                child: ProfileImage(cloudUrl: cloudUrl, displayPic: displayPic, firstName: firstName, initialsSize: 20,), 
+                child: ProfileImage(
+                  cloudUrl: cloudUrl,
+                  displayPic: displayPic,
+                  firstName: firstName,
+                  initialsSize: 20,
+                ),
               ),
               onTap: () async {
                 final result = await Navigator.push(
                   context,
-                MaterialPageRoute(
+                  MaterialPageRoute(
                     builder: (context) => const ViewProfileScreen(),
                   ),
                 );

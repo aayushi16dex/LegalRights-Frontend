@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, file_names
+
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/customShapePaint.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/webView.dart';
