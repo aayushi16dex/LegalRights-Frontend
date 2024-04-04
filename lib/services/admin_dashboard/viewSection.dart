@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend/api_call/section_api/section_apiCall.dart';
-import 'package:frontend/services/admin_dashboard/detailSection.dart';
+import 'package:frontend/presentation/admin_dashboard/legal_section/detailSection.dart';
 
 class ViewSection extends StatefulWidget {
   const ViewSection({super.key});

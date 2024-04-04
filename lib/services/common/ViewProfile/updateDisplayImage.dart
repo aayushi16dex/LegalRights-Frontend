@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:frontend/api_call/userChild_api/uploadProfilePicApi.dart';
 import 'package:frontend/presentation/confirmation_alert/error_confirmation.dart';
-import 'package:frontend/presentation/confirmation_alert/upload_image_confirmation.dart';
+import 'package:frontend/presentation/confirmation_alert/success_confirmation.dart';
 import 'package:frontend/services/admin_dashboard/addImageService.dart';
 
 class UpdateDisplayImage {
@@ -16,7 +16,8 @@ class UpdateDisplayImage {
           await uploadProfilePicApi.uploadProfilePic(context, imageUrl!);
 
       if (response.statusCode == 200) {
-        UpdateImageConfirmationAlert.showImageUpdateConfirmationDialog(context, "Profile picture");
+        String message = 'Profile picture uploaded successfully';
+        SuccessConfirmation.successConfirmationDialog(context, message);
         Map<String, dynamic> responseData = json.decode(response.body);
         String displayPicture = responseData['displayPicture'];
         return displayPicture;

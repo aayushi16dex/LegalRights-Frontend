@@ -3,7 +3,7 @@ import 'package:frontend/api_call/section_api/section_apiCall.dart';
 import 'package:frontend/presentation/admin_dashboard/build_card/build_legalContentCard.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/buttons/build_addButton.dart';
 import 'package:frontend/presentation/common/circular_progressBar.dart';
-import 'package:frontend/services/admin_dashboard/detailSection.dart';
+import 'package:frontend/presentation/admin_dashboard/legal_section/detailSection.dart';
 
 class LegalContentScreen extends StatefulWidget {
   const LegalContentScreen({super.key});
