@@ -14,6 +14,25 @@ class AddVideoService {
 
     if (pickedVideo != null) {
       try {
+        showDialog(
+          context: context,
+          barrierDismissible: false, // Prevent dismiss by tapping outside of the dialog
+          builder: (BuildContext context) {
+            return const AlertDialog(
+              title: Text('Uploading Video'),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
+                    Text('Please wait while the video is being uploaded...'),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+
         String fileExtension = pickedVideo.name.split('.').last.toLowerCase();
         if (validExtensions.contains('.$fileExtension')) {
           videoUrl = await uploadVideo(pickedVideo);
@@ -23,12 +42,17 @@ class AddVideoService {
             print("No upload");
           }
         } else {
+          Navigator.pop(context); 
           String error = 'Invalid file format';
           String errorMessage = 'Only .mp4, .mov, .avi and .mkv videos are allowed.';
           ErrorConfirmation.errorConfirmationAlert(context, error, errorMessage);
         }
       } catch (e) {
         print(e);
+      }
+      finally {
+        // Always dismiss the loading indicator after upload attempt
+        Navigator.pop(context);
       }
     }
     return videoUrl;

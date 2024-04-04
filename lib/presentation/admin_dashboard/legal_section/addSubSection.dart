@@ -1,13 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/legalContent_api/addSubSection_api.dart';
-import 'package:frontend/presentation/confirmation_alert/completion_confirmation.dart';
-import 'package:frontend/presentation/confirmation_alert/success_confirmation.dart';
 import 'package:frontend/services/admin_dashboard/addSubSection_Service.dart';
 import 'package:frontend/services/admin_dashboard/addVideoService.dart';
-import 'package:frontend/services/admin_dashboard/addVideoService.dart';
-
 class AddSubSectionScreen extends StatefulWidget {
   final String sectionId;
 
@@ -45,7 +40,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
     double maxFontSize = screenWidth * 0.07;
     double containerWidth = screenWidth * 0.9;
     double buttonWidth = containerWidth * 0.7;
-    const int totalVideos = 4;
+    int totalVideos = videoTitle.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -146,7 +141,6 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                           onPressed: () {                           
                                 final sectionId = widget.sectionId;
                                 AddSubSectionService.addSubSection(context, sectionId, videoUrl);                         
-                                // callAdminHomeScreen(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -171,10 +165,5 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
         ],
       ),
     );
-  }
-
-  void callAdminHomeScreen(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 }
