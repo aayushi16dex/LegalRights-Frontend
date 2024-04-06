@@ -1,9 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
-import 'package:frontend/api_call/legalContent_api/addSubSection_api.dart';
+import 'package:frontend/services/admin_dashboard/addSubSection_Service.dart';
 import 'package:frontend/services/admin_dashboard/addVideoService.dart';
-
 class AddSubSectionScreen extends StatefulWidget {
   final String sectionId;
 
@@ -19,6 +18,21 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
   List<String?> videoPaths = List.filled(4, null);
   List<bool> videoUploaded = List.filled(4, false);
   bool showErrorMessages = false;
+  Map<int, String> video = {
+    1: 'introductionVideo',
+    2: 'contentVideo1',
+    3: 'narratorVideo',
+    4: 'contentVideo2'
+  };
+
+   Map<int, String> videoTitle = {
+    1: 'Introduction Video',
+    2: 'Content Video 1',
+    3: 'Narrator Video',
+    4: 'Content Video 2'
+  };
+
+  Map<int, String> videoUrl = {};
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +40,22 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
     double maxFontSize = screenWidth * 0.07;
     double containerWidth = screenWidth * 0.9;
     double buttonWidth = containerWidth * 0.7;
+    int totalVideos = videoTitle.length;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Add Sub Section',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: maxFontSize,
-            color: Colors.white
-          ),
+              fontWeight: FontWeight.bold,
+              fontSize: maxFontSize,
+              color: Colors.white),
         ),
-         iconTheme: const IconThemeData(
-            color: Colors.white, // Set your desired color here
-          ),
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Set your desired color here
+        ),
         backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.close),
-        //     onPressed: () {
-        //       callAdminHomeScreen(context);
-        //     },
-        //   ),
-        // ],
       ),
       body: Column(
         children: [
@@ -62,7 +68,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      for (int i = 0; i < 4; i++)
+                      for (int i = 0; i < totalVideos; i++)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -81,7 +87,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Video ${i + 1}:',
+                                    '${videoTitle[i+1]}:',
                                     style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
@@ -92,20 +98,24 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                                   Center(
                                     child: ElevatedButton(
                                       onPressed: () async {
-                                        String? path = await AddVideoService
-                                            .pickVideo(context);
-                                        if (path != null) {
+                                        AddVideoService videoService =
+                                            AddVideoService();
+                                         String? videoPath = await videoService.addVideo(context);
+                                           
+                                        if (videoPath != null) {
                                           setState(() {
-                                            videoPaths[i] = path;
+                                            videoUrl[i+1] = videoPath;
                                             videoUploaded[i] = true;
                                           });
+                                        } else {
+                                          print('Failed to select video.');
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: videoUploaded[i]
-                                            ? const Color.fromARGB(
-                                                255, 4, 37, 97)
-                                            : const Color.fromARGB(255, 129, 127, 127),
+                                            ? Color.fromRGBO(4, 37, 97, 1)
+                                            : const Color.fromARGB(
+                                                255, 129, 127, 127),
                                         elevation: 3,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20, horizontal: 28),
@@ -116,20 +126,10 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                                             ? 'Video Uploaded'
                                             : 'Upload Video',
                                         style: const TextStyle(
-                                            fontSize:16,
-                                            color: Colors.white),
+                                            fontSize: 16, color: Colors.white),
                                       ),
                                     ),
                                   ),
-                                  if (!videoUploaded[i] && showErrorMessages)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8),
-                                      child: Text(
-                                        'Please upload Video ${i + 1}',
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                  const SizedBox(height: 16),
                                 ],
                               ),
                             ),
@@ -138,25 +138,9 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                       const SizedBox(height: 20),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              if (videoPaths.any((path) => path == null)) {
-                                setState(() {
-                                  showErrorMessages = true;
-                                });
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Please upload all videos'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              } else {
+                          onPressed: () {                           
                                 final sectionId = widget.sectionId;
-                                AddSubSectionApi.addSubSection(
-                                    sectionId, videoPaths);
-                              }
-                            }
+                                AddSubSectionService.addSubSection(context, sectionId, videoUrl);                         
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -167,11 +151,8 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                             minimumSize: Size(buttonWidth, 0),
                           ),
                           child: const Text(
-                            'Submit',
-                            style:
-                                TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white),
+                            'Add',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
                       ),
@@ -184,11 +165,5 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
         ],
       ),
     );
-  }
-
-  void callAdminHomeScreen(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/api_call/section_api/section_apiCall.dart';
 import 'package:frontend/presentation/admin_dashboard/build_card/build_legalContentCard.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/buttons/build_addButton.dart';
-import 'package:frontend/services/admin_dashboard/detailSection.dart';
+import 'package:frontend/presentation/admin_dashboard/legal_section/detailSection.dart';
 
 class LegalContentScreen extends StatefulWidget {
   const LegalContentScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _LegalContentScreenState extends State<LegalContentScreen> {
         legalContentCount = value.length;
       });
     });
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       refreshSectionData();
     });
   }
@@ -72,7 +72,7 @@ class _LegalContentScreenState extends State<LegalContentScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting &&
                     legalContentCount == 0) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError || snapshot.data == null) {

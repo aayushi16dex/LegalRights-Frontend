@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class UpdateImageConfirmationAlert {
-  static void showImageUpdateConfirmationDialog(
-      BuildContext context, String updateName) {
+class SuccessConfirmation {
+  static void successConfirmationDialog(
+      BuildContext context, String message) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -22,7 +22,7 @@ class UpdateImageConfirmationAlert {
               ),
               const SizedBox(height: 20.0),
               Text(
-                '$updateName updated Successfully',
+                message,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 4, 37, 97),
                   fontSize: 20.0,
