@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
+import 'package:frontend/core/constants.dart';
 import 'package:frontend/services/admin_dashboard/addSubSection_Service.dart';
 import 'package:frontend/services/admin_dashboard/addVideoService.dart';
 class AddSubSectionScreen extends StatefulWidget {
@@ -18,19 +19,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
   List<String?> videoPaths = List.filled(4, null);
   List<bool> videoUploaded = List.filled(4, false);
   bool showErrorMessages = false;
-  Map<int, String> video = {
-    1: 'introductionVideo',
-    2: 'contentVideo1',
-    3: 'narratorVideo',
-    4: 'contentVideo2'
-  };
-
-   Map<int, String> videoTitle = {
-    1: 'Introduction Video',
-    2: 'Content Video 1',
-    3: 'Narrator Video',
-    4: 'Content Video 2'
-  };
+  
 
   Map<int, String> videoUrl = {};
 
@@ -40,7 +29,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
     double maxFontSize = screenWidth * 0.07;
     double containerWidth = screenWidth * 0.9;
     double buttonWidth = containerWidth * 0.7;
-    int totalVideos = videoTitle.length;
+    int totalVideos = VIDEO_TITLE.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +76,7 @@ class _AddSubSectionScreenState extends State<AddSubSectionScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${videoTitle[i+1]}:',
+                                    '${VIDEO_TITLE[i+1]}:',
                                     style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
