@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/dashboard/admin/a_landingPage_screen.dart';
 import 'package:frontend/presentation/child_dashboard/confirmation_alert/addSectionConfirmation.dart';
 import 'package:http/http.dart' as http;
 import '../../core/TokenManager.dart';
@@ -38,8 +39,12 @@ class AddSectionApiCall {
             AddSectionconfirmation();
         addSectionconfirmation.addSectionConfirmationAlert(context);
         Future.delayed(const Duration(seconds: 2), () {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const AdminLandingScreen(selectLegalContentScreen: true)),
+          );
         });
       } else if (response.statusCode == 409) {
         showErrorConfirmation(context, 'Section Number Already Exists');

@@ -15,7 +15,6 @@ class LegalContentScreen extends StatefulWidget {
 class _LegalContentScreenState extends State<LegalContentScreen> {
   late Future<List<Map<String, dynamic>>> sectionData;
   int legalContentCount = 0;
-  late Timer _timer;
 
   @override
   void initState() {
@@ -26,14 +25,10 @@ class _LegalContentScreenState extends State<LegalContentScreen> {
         legalContentCount = value.length;
       });
     });
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      refreshSectionData();
-    });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
