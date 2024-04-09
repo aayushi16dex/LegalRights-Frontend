@@ -28,9 +28,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    // String videoUrl = '${AppConfig.baseUrl}/${widget.videoUrl}';
-    String videoUrl = 'https://www.youtube.com/watch?v=KLRL8XKThfw';
-    _controller = VideoPlayerController.network(videoUrl);
+    _controller = VideoPlayerController.network(widget.videoUrl);
     _initializeVideoPlayerFuture = _controller.initialize();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (mounted) {

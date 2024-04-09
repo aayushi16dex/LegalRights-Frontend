@@ -9,6 +9,7 @@ class CompletionConfirmation {
         Future.delayed(const Duration(seconds: 3), () {
           Navigator.of(context).pop();
           Navigator.of(context).pop();
+          Navigator.of(context).pop();
         });
         return AlertDialog(
           content: Column(
@@ -22,7 +23,7 @@ class CompletionConfirmation {
               ),
               const SizedBox(height: 10.0),
               Text(
-                'Unit $number Successfully Completed',
+                'Lession $number Successfully Completed',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],

@@ -1,15 +1,19 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/child_dashboard/section_content/webView.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.dart';
 
 class SubSectionContent1 {
   Widget buildSubSectionContent1(BuildContext context,
       Map<String, dynamic> sectionData, Map<String, dynamic> subSectionData) {
+    var cloudVideoUrl = dotenv.env['FETCH_VIDEO_URL'];
     Map<String, dynamic> videoUrlList = {
-      'Introduction Part 1': '${subSectionData["contentVideo1"]}',
-      'Introduction Part 2': '${subSectionData["contentVideo2"]}'
+      'Welcome To Session':
+          '$cloudVideoUrl${subSectionData["introductionVideo"]}',
+      'Introduction Part 1': '$cloudVideoUrl${subSectionData["contentVideo1"]}',
+      'Introduction Part 2': '$cloudVideoUrl${subSectionData["contentVideo2"]}',
+      'Conclusion': '$cloudVideoUrl${subSectionData["narratorVideo"]}',
     };
+    List<String> videoTitle = videoUrlList.keys.toList();
     final Map<int, IconData> lessonIcons = {
       1: Icons.keyboard_double_arrow_right_outlined,
       2: Icons.menu_book,
@@ -51,86 +55,70 @@ class SubSectionContent1 {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    margin: const EdgeInsets.all(5),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            // builder: (context) => CustomVideoPlayer(
-                            //   title: videoTitle[i],
-                            //   videoUrl: videoUrlList[videoTitle[i]],
-                            //   unitNumber: i + 1,
-                            // ),
-                            builder: (context) => WebViewScreen(
-                                // videoUrl: videoUrlList[videoTitle[i]],
-                                ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: List.generate(
-                            totalLessons,
-                            (index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15), // Adjust vertical spacing
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: index < currentLevel
-                                                ? const Color.fromARGB(
-                                                        255, 25, 159, 31)
-                                                    .withOpacity(0.9)
-                                                : const Color.fromARGB(
-                                                        255, 122, 124, 122)
-                                                    .withOpacity(
-                                                        0.9), // Shadow color
-                                            spreadRadius: 4, // Spread radius
-                                            offset: const Offset(0,
-                                                3), // Offset to control shadow direction
-                                          ),
-                                        ],
-                                      ),
-                                      child: CircleAvatar(
-                                        radius: 25.0, // Adjust circle size
-                                        backgroundColor: index < currentLevel
-                                            ? const Color.fromARGB(
-                                                255, 18, 216, 25)
-                                            : Colors
-                                                .grey, // Incomplete level color
-                                        child: Icon(
-                                          lessonIcons.containsKey(index + 1)
-                                              ? lessonIcons[index + 1]
-                                              : Icons
-                                                  .error, // Default icon if not found
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                for (int index = 0; index < totalLessons; index++)
+                  Column(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          margin: const EdgeInsets.all(5),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CustomVideoPlayer(
+                                    title: videoTitle[index],
+                                    videoUrl: videoUrlList[videoTitle[index]],
+                                    unitNumber: index + 1,
+                                  ),
                                 ),
                               );
                             },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: index < currentLevel
+                                            ? const Color.fromARGB(
+                                                    255, 25, 159, 31)
+                                                .withOpacity(0.9)
+                                            : const Color.fromARGB(
+                                                    255, 122, 124, 122)
+                                                .withOpacity(
+                                                    0.9), // Shadow color
+                                        spreadRadius: 4, // Spread radius
+                                        offset: const Offset(0,
+                                            3), // Offset to control shadow direction
+                                      ),
+                                    ],
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 25.0, // Adjust circle size
+                                    backgroundColor: index < currentLevel
+                                        ? const Color.fromARGB(255, 18, 216, 25)
+                                        : Colors.grey, // Incomplete level color
+                                    child: Icon(
+                                      lessonIcons.containsKey(index + 1)
+                                          ? lessonIcons[index + 1]
+                                          : Icons
+                                              .error, // Default icon if not found
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ),
               ],
             ),
           ),
