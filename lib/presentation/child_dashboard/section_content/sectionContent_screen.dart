@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/child_dashboard/section_content/buildSectionContent1.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/buildSectionContent.dart';
 import 'package:frontend/services/child_dashboard/sectionContent_Service.dart';
 
 class SectionContentScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class SectionContentScreen extends StatefulWidget {
 }
 
 class _SectionContentScreenState extends State<SectionContentScreen> {
-  SubSectionContent1 subSectionContent = SubSectionContent1();
+  SubSectionContent subSectionContent = SubSectionContent();
   Map<String, dynamic> get sectionData => widget.sectionData;
   SectionContentService sectionContentService = SectionContentService();
   late Future<Map<String, dynamic>> subSectionFuture;
@@ -49,7 +49,7 @@ class _SectionContentScreenState extends State<SectionContentScreen> {
           backgroundColor: const Color.fromARGB(255, 4, 37, 97),
         ),
         body: subSectionData.isNotEmpty
-            ?subSectionContent.buildSubSectionContent1(
+            ?subSectionContent.buildSubSectionContent(
                 context, sectionData, subSectionData)
             : const Center(child: CircularProgressIndicator()));
   }

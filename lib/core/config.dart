@@ -6,6 +6,7 @@ class AppConfig {
   static final List<String> baseUrls = [
     'http://localhost:5000',
     'http://192.168.0.127:5000',
+    'http://192.168.1.4:5000'
     'http://192.168.1.10:5000'
   ];
 
