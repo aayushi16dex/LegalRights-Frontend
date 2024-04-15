@@ -4,7 +4,7 @@ import 'dart:async';
 
 class AppConfig {
   static final List<String> baseUrls = [
-    'https://legalrights-backend.onrender.com',
+    'https://legalrights-backend.onrender.com'
   ];
 
   static String? _baseUrl;
@@ -100,16 +100,16 @@ class AppConfig {
       _createUrl('/content/fetchSection');
   static String get addSubSection => _createUrl('/admin/subSection');
 
-  // User profile 
-    static String get forgotPasswordUrl =>
+  // User profile
+  static String get forgotPasswordUrl =>
       _createUrl('/user/resetPasswordRequest');
   static String get changePassword => _createUrl('/user/changePassword');
   static String get changeAccountInfo => _createUrl('/user/edit');
-    static String get userUrl => _createUrl('/user');
+  static String get userUrl => _createUrl('/user');
   static String get fetchDisplayPicture => _createUrl('/user');
   static String get userSignUpUrl => _createUrl('/user/register');
   static String get profileUrl => _createUrl('/user/profile');
   static String get deleteProfile => _createUrl('/user/deleteAccount');
-  static String get uploadProfilePicture => _createUrl('/user/uploadProfilePicture');
-
+  static String get uploadProfilePicture =>
+      _createUrl('/user/uploadProfilePicture');
 }
