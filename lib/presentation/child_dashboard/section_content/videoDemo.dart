@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/confirmation_alert/completion_confirmation.dart';
 import 'package:video_player/video_player.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
@@ -44,9 +43,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         _controller.play();
         _controller.addListener(() {
           if (_controller.value.position == _controller.value.duration) {
-            // Video ended, show alert
-            CompletionConfirmation.completionConfirmationAlert(
-                context, widget.unitNumber);
+           Navigator.of(context).pop();
           }
         });
       }

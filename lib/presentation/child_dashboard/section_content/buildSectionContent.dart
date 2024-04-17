@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/presentation/child_dashboard/section_content/videoDemo.dart';
+import 'package:frontend/presentation/child_dashboard/section_content/sectionSummary.dart';
+import 'package:frontend/presentation/confirmation_alert/completion_confirmation.dart';
 
 class SubSectionContent {
   Widget buildSubSectionContent(BuildContext context,
@@ -9,20 +11,16 @@ class SubSectionContent {
     Map<String, dynamic> videoUrlList = {
       'Welcome To Session':
           '$cloudVideoUrl${subSectionData["introductionVideo"]}',
-      'Part 1': '$cloudVideoUrl${subSectionData["contentVideo1"]}',
-      'Part 2': '$cloudVideoUrl${subSectionData["contentVideo2"]}',
-      'Conclusion': '$cloudVideoUrl${subSectionData["introductionVideo"]}',
-      'Summary ': '$cloudVideoUrl${subSectionData["introductionVideo"]}',
-      'Achievement': '$cloudVideoUrl${subSectionData["introductionVideo"]}',
+      'Content Part 1': '$cloudVideoUrl${subSectionData["contentVideo1"]}',
+      'Content Part 2': '$cloudVideoUrl${subSectionData["contentVideo2"]}',
     };
     List<String> videoTitle = videoUrlList.keys.toList();
     final Map<int, IconData> lessonIcons = {
       1: Icons.keyboard_double_arrow_right_outlined,
-      2: Icons.menu_book,
-      3: Icons.play_circle_filled,
-      4: Icons.video_library,
-      5: Icons.person_3,
-      6: Icons.emoji_events
+      2: Icons.play_circle_filled,
+      3: Icons.video_library,
+      4:Icons.menu_book,
+      5: Icons.emoji_events
     };
     int totalLessons = lessonIcons.length; // Total number of levels
     const int currentLevel = 40; // Current level or progress
@@ -67,16 +65,26 @@ class SubSectionContent {
                           margin: const EdgeInsets.all(5),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              if(index == 3)
+                                Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CustomVideoPlayer(
-                                    title: videoTitle[index],
-                                    videoUrl: videoUrlList[videoTitle[index]],
-                                    unitNumber: index + 1,
-                                  ),
+                                  builder: (context) =>   SectionSummaryScreen()
                                 ),
-                              );
+                                );
+                              if(index == 0 || index == 1 || index == 2)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CustomVideoPlayer(
+                                      title: videoTitle[index],
+                                      videoUrl: videoUrlList[videoTitle[index]],
+                                      unitNumber: index + 1,
+                                    ),
+                                  ),
+                                );
+                              if(index == 4)
+                                CompletionConfirmation.completionConfirmationAlert(context, sectionData['sectionNumber']);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
