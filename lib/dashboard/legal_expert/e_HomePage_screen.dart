@@ -15,7 +15,10 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
   late int answeredQueries = 0;
   late int unansweredQueries = 0;
 
-  final List<Color> colorList = [const Color.fromARGB(255, 62, 179, 66), const Color.fromARGB(255, 214, 31, 18)];
+  final List<Color> colorList = [
+    const Color.fromARGB(255, 62, 179, 66),
+    const Color.fromARGB(255, 214, 31, 18)
+  ];
 
   @override
   void initState() {
@@ -51,7 +54,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                   child: Text(
                     'Welcome to Tiny Advocate',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white, // Adjust text color
                     ),
@@ -66,7 +69,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                     Text(
                       'Tiny Advocate is here to empower the youngest minds with awareness about their rights and responsibilities.',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         color:
                             Color.fromARGB(255, 4, 37, 97), // Adjust text color
                       ),
@@ -98,7 +101,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                             children: [
                               // Add PieChart widget here
                               PieChart(
-                                dataMap:  {
+                                dataMap: {
                                   'Answered Queries':
                                       answeredQueries.toDouble(),
                                   'Unanswered Queries':
@@ -127,7 +130,6 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                               const SizedBox(
                                   height:
                                       20), // Add some space between the PieChart and the text
-                              
                             ],
                           ),
                         ),
@@ -142,7 +144,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Text(
+                              Text(
                                 'Total Queries: $totalQueries',
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -167,7 +169,7 @@ class _LegalHomeScreenState extends State<LegalExpertHomeScreen> {
                                 ),
                               )
                             ],
-                        ),
+                          ),
                         ),
                         const SizedBox(height: 50),
                         SizedBox(
