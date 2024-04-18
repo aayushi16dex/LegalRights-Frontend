@@ -47,7 +47,7 @@ class SignInConfirmation {
                 'Signed in Successfully',
                 style: TextStyle(
                   color: Color.fromARGB(255, 4, 37, 97),
-                  fontSize: 24.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),

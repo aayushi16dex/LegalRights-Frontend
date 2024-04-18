@@ -25,7 +25,7 @@ class BuildMyQueriesCard {
                 'Question $quesNo:',
                 style: const TextStyle(
                   color: Color.fromARGB(255, 4, 37, 97),
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
@@ -34,7 +34,7 @@ class BuildMyQueriesCard {
               Text(
                 '${data['query']}',
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ],
@@ -46,14 +46,14 @@ class BuildMyQueriesCard {
                   ? Text(
                       'Answer: ${data['response']}',
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Color.fromARGB(255, 4, 37, 97),
                       ),
                     )
                   : const Text(
                       'Not answered till now',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Colors.red,
                       ),
                     ),
