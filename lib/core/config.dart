@@ -13,7 +13,6 @@ class AppConfig {
 
   static Future<void> initialize() async {
     for (String url in baseUrls) {
-      //print('Checking URL: $url');
       if (await checkUrlAvailability(url)) {
         _baseUrl = url;
         if (kDebugMode) {

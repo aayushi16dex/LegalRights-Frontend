@@ -9,17 +9,18 @@ class DropDownDataFormService {
   static void onAddPress(
       BuildContext context, String dropDownName, String dropDownData) {
     late Future<int> value;
-    if (dropDownName == 'Profession') {
+    print("Dropdown name is: $dropDownName");
+    if (dropDownName == 'Add Profession') {
       value = ProfessionDropDownApi.addProfessionApi(context, dropDownData);
       value.then((int value) {
         addConfirmationStatus(context, value, dropDownName, dropDownData);
       });
-    } else if (dropDownName == 'Expertise') {
+    } else if (dropDownName == 'Add Expertise') {
       value = ExpertiseDropDownApi.addExpertiseApi(context, dropDownData);
       value.then((int value) {
         addConfirmationStatus(context, value, dropDownName, dropDownData);
       });
-    } else if (dropDownName == 'Language') {
+    } else if (dropDownName == 'Add Language') {
       value = LanguageDropDownApi.addLanguageApi(context, dropDownData);
       value.then((int value) {
         addConfirmationStatus(context, value, dropDownName, dropDownData);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/admin_dashboard/dialogue_alert/fullScreenView.dart';
+import 'package:frontend/presentation/admin_dashboard/dialogue_alert/viewExpertDetailScreen.dart';
 
 class ViewExpertDetailAlert {
   static Future<void> viewExpertDetailAlert(
@@ -23,7 +23,7 @@ class ViewExpertDetailAlert {
         .toList();
 
     await Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => FullScreenView(
+      builder: (context) => ViewExpertDetailScreen(
         id: id,
         fullName: fullName,
         email: email,

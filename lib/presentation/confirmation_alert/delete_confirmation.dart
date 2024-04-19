@@ -33,8 +33,8 @@ class DeleteConfirmation {
                 'Deleted Successfully',
                 style: TextStyle(
                   color: Color.fromARGB(255, 4, 37, 97),
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ],

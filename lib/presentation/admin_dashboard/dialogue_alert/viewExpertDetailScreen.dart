@@ -7,7 +7,7 @@ import 'package:frontend/dashboard/admin/a_landingPage_screen.dart';
 import 'package:frontend/presentation/admin_dashboard/widget/dialogue_alert/view_expertAlertDataWidget.dart';
 import 'package:frontend/presentation/child_dashboard/confirmation_alert/LegalExpertDetailChangeConfirmationAlert.dart';
 
-class FullScreenView extends StatefulWidget {
+class ViewExpertDetailScreen extends StatefulWidget {
   final String id;
   final String fullName;
   final String email;
@@ -17,7 +17,7 @@ class FullScreenView extends StatefulWidget {
   final List<String> languageList;
   final List<String> expertiseList;
 
-  const FullScreenView({
+  const ViewExpertDetailScreen({
     Key? key,
     required this.id,
     required this.fullName,
@@ -30,10 +30,10 @@ class FullScreenView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FullScreenViewState createState() => _FullScreenViewState();
+  _ViewExpertDetailScreenState createState() => _ViewExpertDetailScreenState();
 }
 
-class _FullScreenViewState extends State<FullScreenView> {
+class _ViewExpertDetailScreenState extends State<ViewExpertDetailScreen> {
   bool _isLoading = true;
   bool _isEditMode = false;
   late TextEditingController _fullNameController;

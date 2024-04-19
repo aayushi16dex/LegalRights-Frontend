@@ -54,16 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         .headline6
                         ?.copyWith(color: Colors.black),
                   ),
-                  // subtitle: Text(
-                  //   '---',
-                  //   style: Theme.of(context)
-                  //       .textTheme
-                  //       .subtitle1
-                  //       ?.copyWith(color: Colors.white54),
-                  // ),
                   trailing: const CircleAvatar(
                     radius: 30,
-                    //backgroundImage: AssetImage('assets/images/user.JPG'),
                   ),
                 ),
                 const SizedBox(height: 30),
