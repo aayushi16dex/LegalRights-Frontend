@@ -43,8 +43,8 @@ class RegisterApiCall {
       if (response.statusCode == 201) {
         final String role = data['userData']['role'];
         final String authToken = data['token'] ?? '';
-        await TokenManager.storeAuthToken(authToken);
         if (role == roleChild) {
+          await TokenManager.storeAuthToken(authToken);
           ProfileHeaderDataApiCal.profileDataApi(context);
         } 
         SignupConfirmation.signUpConfirmationAlert(context, role);
