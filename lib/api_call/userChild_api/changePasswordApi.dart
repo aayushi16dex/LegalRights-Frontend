@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/TokenManager.dart';
 import 'package:frontend/core/config.dart';
 import 'package:http/http.dart' as http;
+import 'package:frontend/model/header_data.dart';
 
 class ChangePasswordApi {
   Future<int?> changePassword(
       BuildContext context, String oldPassword, String newPassword) async {
+    String apiUrl = '';
+    HeaderData headerData = HeaderData();
+    String userRole = headerData.getUserRole();
     try {
-      final String apiUrl = AppConfig.changePassword;
+      if (userRole == "CHILD") {
+        apiUrl = AppConfig.changePassword;
+      } else if (userRole == "LEGAL_EXPERT") {
+        apiUrl = AppConfig.expertChangePassword;
+      }
       final String authToken = await TokenManager.getAuthToken();
       final response = await http.patch(
         Uri.parse(apiUrl),

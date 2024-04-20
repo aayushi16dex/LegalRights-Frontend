@@ -103,6 +103,8 @@ class AppConfig {
   static String get forgotPasswordUrl =>
       _createUrl('/user/resetPasswordRequest');
   static String get changePassword => _createUrl('/user/changePassword');
+  static String get expertChangePassword =>
+      _createUrl('/expert/changePassword');
   static String get changeAccountInfo => _createUrl('/user/edit');
   static String get userUrl => _createUrl('/user');
   static String get fetchDisplayPicture => _createUrl('/user');
