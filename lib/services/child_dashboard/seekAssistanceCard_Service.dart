@@ -16,11 +16,11 @@ class SeekAssistanceCardService {
 
   void onContactOrganisationClick(String url) async {
     // Convert string URL to Uri
-    Uri uri = Uri.parse(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+    try {
+      Uri uri = Uri.parse(url);
+      launch(url);
+    } catch (e) {
+      print("Could not launch $url. Some error occured: $e");
     }
   }
 }
